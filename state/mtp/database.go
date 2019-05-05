@@ -22,6 +22,7 @@ import (
 	"sync"
 	"time"
 
+	"github.com/allegro/bigcache"
 	"github.com/ethereum/go-ethereum/log"
 	"github.com/fractalplatform/fractal/common"
 	"github.com/fractalplatform/fractal/metrics"
@@ -30,6 +31,11 @@ import (
 )
 
 var (
+	memcacheCleanHitMeter   = metrics.NewRegisteredMeter("trie/memcache/clean/hit", nil)
+	memcacheCleanMissMeter  = metrics.NewRegisteredMeter("trie/memcache/clean/miss", nil)
+	memcacheCleanReadMeter  = metrics.NewRegisteredMeter("trie/memcache/clean/read", nil)
+	memcacheCleanWriteMeter = metrics.NewRegisteredMeter("trie/memcache/clean/write", nil)
+
 	memcacheFlushTimeTimer  = metrics.NewRegisteredResettingTimer("trie/memcache/flush/time", nil)
 	memcacheFlushNodesMeter = metrics.NewRegisteredMeter("trie/memcache/flush/nodes", nil)
 	memcacheFlushSizeMeter  = metrics.NewRegisteredMeter("trie/memcache/flush/size", nil)
@@ -64,6 +70,7 @@ type DatabaseReader interface {
 type Database struct {
 	diskdb fdb.Database // Persistent storage for matured trie nodes
 
+	cleans *bigcache.BigCache
 	nodes  map[common.Hash]*cachedNode // Data and references relationships of a node
 	oldest common.Hash                 // Oldest tracked node, flush-list head
 	newest common.Hash                 // Newest tracked node, flush-list tail
@@ -271,6 +278,28 @@ func NewDatabase(diskdb fdb.Database) *Database {
 	}
 }
 
+// NewDatabaseWithCache creates a new trie database to store ephemeral trie content
+// before its written out to disk or garbage collected. It also acts as a read cache
+// for nodes loaded from disk.
+func NewDatabaseWithCache(diskdb fdb.Database, cache int) *Database {
+	var cleans *bigcache.BigCache
+	if cache > 0 {
+		cleans, _ = bigcache.NewBigCache(bigcache.Config{
+			Shards:             1024,
+			LifeWindow:         time.Hour,
+			MaxEntriesInWindow: cache * 1024,
+			MaxEntrySize:       512,
+			HardMaxCacheSize:   cache,
+		})
+	}
+	return &Database{
+		diskdb:    diskdb,
+		cleans:    cleans,
+		nodes:     map[common.Hash]*cachedNode{{}: {}},
+		preimages: make(map[common.Hash][]byte),
+	}
+}
+
 // DiskDB retrieves the persistent storage backing the trie database.
 func (db *Database) DiskDB() DatabaseReader {
 	return db.diskdb
@@ -333,6 +362,15 @@ func (db *Database) insertPreimage(hash common.Hash, preimage []byte) {
 // node retrieves a cached trie node from memory, or returns nil if none can be
 // found in the memory cache.
 func (db *Database) node(hash common.Hash, cachegen uint16) node {
+	// Retrieve the node from the clean cache if available
+	if db.cleans != nil {
+		if enc, err := db.cleans.Get(string(hash[:])); err == nil && enc != nil {
+			memcacheCleanHitMeter.Mark(1)
+			memcacheCleanReadMeter.Mark(int64(len(enc)))
+			return mustDecodeNode(hash[:], enc, cachegen)
+		}
+	}
+
 	// Retrieve the node from cache if available
 	db.lock.RLock()
 	node := db.nodes[hash]
@@ -346,12 +384,26 @@ func (db *Database) node(hash common.Hash, cachegen uint16) node {
 	if err != nil || enc == nil {
 		return nil
 	}
+	if db.cleans != nil {
+		db.cleans.Set(string(hash[:]), enc)
+		memcacheCleanMissMeter.Mark(1)
+		memcacheCleanWriteMeter.Mark(int64(len(enc)))
+	}
 	return mustDecodeNode(hash[:], enc, cachegen)
 }
 
 // Node retrieves an encoded cached trie node from memory. If it cannot be found
 // cached, the method queries the persistent database for the content.
 func (db *Database) Node(hash common.Hash) ([]byte, error) {
+	// Retrieve the node from the clean cache if available
+	if db.cleans != nil {
+		if enc, err := db.cleans.Get(string(hash[:])); err == nil && enc != nil {
+			memcacheCleanHitMeter.Mark(1)
+			memcacheCleanReadMeter.Mark(int64(len(enc)))
+			return enc, nil
+		}
+	}
+
 	// Retrieve the node from cache if available
 	db.lock.RLock()
 	node := db.nodes[hash]
@@ -360,8 +412,17 @@ func (db *Database) Node(hash common.Hash) ([]byte, error) {
 	if node != nil {
 		return node.rlp(), nil
 	}
+
 	// Content unavailable in memory, attempt to retrieve from disk
-	return db.diskdb.Get(hash[:])
+	enc, err := db.diskdb.Get(hash[:])
+	if err == nil && enc != nil {
+		if db.cleans != nil {
+			db.cleans.Set(string(hash[:]), enc)
+			memcacheCleanMissMeter.Mark(1)
+			memcacheCleanWriteMeter.Mark(int64(len(enc)))
+		}
+	}
+	return enc, err
 }
 
 // preimage retrieves a cached trie node pre-image from memory. If it cannot be

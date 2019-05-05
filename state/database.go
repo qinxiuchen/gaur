@@ -58,6 +58,16 @@ func NewDatabase(db fdb.Database) Database {
 	}
 }
 
+// NewDatabase creates a backing store for state. The returned database is safe for
+// concurrent use and retains both a few recent expanded trie nodes in memory, as
+// well as a lot of collapsed RLP trie nodes in a large memory cache.
+func NewDatabaseWithCache(db fdb.Database, cache int) Database {
+	return &cachingDB{
+		db:     db,
+		triedb: trie.NewDatabaseWithCache(db, cache),
+	}
+}
+
 type cachingDB struct {
 	db     fdb.Database
 	lock   sync.Mutex

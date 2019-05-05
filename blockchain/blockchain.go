@@ -118,7 +118,7 @@ func NewBlockChain(db fdb.Database, statePruning bool, vmConfig vm.Config, chain
 		triegc:            prque.New(nil),
 		vmConfig:          vmConfig,
 		db:                db,
-		stateCache:        state.NewDatabase(db),
+		stateCache:        state.NewDatabaseWithCache(db, 256),
 		quit:              make(chan struct{}),
 		bodyCache:         bodyCache,
 		headerCache:       headerCache,
