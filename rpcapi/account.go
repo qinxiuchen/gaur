@@ -45,9 +45,6 @@ func (aapi *AccountAPI) AccountIsExist(ctx context.Context, acctName common.Name
 	if err != nil {
 		return false, err
 	}
-	if acct == nil {
-		return false, ErrGetAccounManagerErr
-	}
 	return acct.AccountIsExist(acctName)
 }
 
@@ -75,14 +72,12 @@ func (aapi *AccountAPI) GetAccountByName(ctx context.Context, accountName common
 	return am.GetAccountByName(accountName)
 }
 
-//GetAccountBalanceByID
-func (aapi *AccountAPI) GetAccountBalanceByID(ctx context.Context, accountName common.Name, assetID uint64, typeID uint64) (*big.Int, error) {
+// GetAccountBalanceByAssetID get account asset balance by assetID,
+// if typeID is 0 not contain subaccount balance; if typeID is 1 contain subaccount balance; if typeID is other return error
+func (aapi *AccountAPI) GetAccountBalanceByAssetID(ctx context.Context, accountName common.Name, assetID uint64, typeID uint64) (*big.Int, error) {
 	am, err := aapi.b.GetAccountManager()
 	if err != nil {
 		return nil, err
-	}
-	if am == nil {
-		return nil, ErrGetAccounManagerErr
 	}
 	return am.GetAccountBalanceByID(accountName, assetID, typeID)
 }
@@ -166,26 +161,15 @@ func (aapi *AccountAPI) GetAccountBalanceByTime(ctx context.Context, accountName
 	return am.GetBalanceByTime(accountName, assetID, typeID, time)
 }
 
-//GetSnapshotLast  get last snapshot time
-func (aapi *AccountAPI) GetSnapshotLast(ctx context.Context) (uint64, error) {
+// GetSnapshotTime get snapshot time
+// if TypeID = 0, time must be 0, return last snapshot time;
+// if TypeID = 1, return previous snapshot time;
+// if TypeID = 2, return next snapshot time.
+func (aapi *AccountAPI) GetSnapshotTime(typeID uint64, time uint64) (uint64, error) {
 	am, err := aapi.b.GetAccountManager()
 	if err != nil {
 		return 0, err
 	}
-	if am == nil {
-		return 0, ErrGetAccounManagerErr
-	}
-	return am.GetSnapshotTime(0, 0)
-}
 
-//getSnapshottime  m: 1  preview time   2 next time
-func (aapi *AccountAPI) GetSnapshotTime(ctx context.Context, m uint64, time uint64) (uint64, error) {
-	am, err := aapi.b.GetAccountManager()
-	if err != nil {
-		return 0, err
-	}
-	if am == nil {
-		return 0, ErrGetAccounManagerErr
-	}
-	return am.GetSnapshotTime(m, time)
+	return am.GetSnapshotTime(typeID, time)
 }

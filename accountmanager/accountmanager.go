@@ -422,15 +422,17 @@ func (am *AccountManager) GetAccountByName(accountName common.Name) (*Account, e
 //GetAccountIDByName get account id by account name
 func (am *AccountManager) GetAccountIDByName(accountName common.Name) (uint64, error) {
 	if accountName == "" {
-		return 0, nil
+		return 0, ErrAccountNameInvalid
 	}
+
 	b, err := am.sdb.Get(acctManagerName, accountNameIDPrefix+accountName.String())
 	if err != nil {
 		return 0, err
 	}
 	if len(b) == 0 {
-		return 0, nil
+		return 0, ErrAccountNotExist
 	}
+
 	var accountID uint64
 	if err := rlp.DecodeBytes(b, &accountID); err != nil {
 		return 0, err
@@ -441,7 +443,7 @@ func (am *AccountManager) GetAccountIDByName(accountName common.Name) (uint64, e
 //GetAccountById get account by account id
 func (am *AccountManager) GetAccountById(id uint64) (*Account, error) {
 	if id == 0 {
-		return nil, nil
+		return nil, ErrAccountNotExist
 	}
 
 	b, err := am.sdb.Get(acctManagerName, acctInfoPrefix+strconv.FormatUint(id, 10))
@@ -451,7 +453,7 @@ func (am *AccountManager) GetAccountById(id uint64) (*Account, error) {
 	}
 	if len(b) == 0 {
 		log.Debug("account not exist", "id", ErrAccountNotExist, id)
-		return nil, nil
+		return nil, ErrAccountNotExist
 	}
 	var acct Account
 	if err := rlp.DecodeBytes(b, &acct); err != nil {
@@ -806,7 +808,11 @@ func (am *AccountManager) GetAccountLastChange(accountName common.Name) (uint64,
 //num = 0  current snapshot time , 1 preview snapshot time , 2 next snapshot time
 func (am *AccountManager) GetSnapshotTime(num uint64, time uint64) (uint64, error) {
 	snapshotManager := snapshot.NewSnapshotManager(am.sdb)
+
 	if num == 0 {
+		if time != 0 {
+			return 0, fmt.Errorf("param time error, time must be 0")
+		}
 		return snapshotManager.GetLastSnapshotTime()
 	} else if num == 1 {
 		return snapshotManager.GetPrevSnapshotTime(time)
