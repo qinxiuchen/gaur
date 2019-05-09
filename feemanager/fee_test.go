@@ -248,7 +248,7 @@ func TestWithdrawFeeFromSystem(t *testing.T) {
 
 		if tf.objectName == testFeeInfo[0].objectName {
 			//check withdraw account balance
-			value, err := fm.accountDB.GetAccountBalanceByID(common.Name("testtest.testact1"), tf.assetID, 0)
+			value, err := fm.accountDB.GetAccountBalanceByAssetID(common.Name("testtest.testact1"), tf.assetID, 0)
 			if err != nil || value.Cmp(tf.totalValue) != 0 {
 				t.Errorf("check account balances failed, name:%v, value:%v, err:%v", tf.objectName, value, err)
 			}

@@ -173,7 +173,7 @@ func generateAccount() {
 	c_author_0_priv = newPrivateKey_c
 	fmt.Println("priv_c ", hex.EncodeToString(crypto.FromECDSA(newPrivateKey_c)), " pubKey_c ", pubKey_c.String())
 
-	balance, _ := testcommon.GetAccountBalanceByID(adminAccount, assetID)
+	balance, _ := testcommon.GetAccountBalanceByAssetID(adminAccount, assetID)
 	balance.Div(balance, big.NewInt(10))
 
 	normal_a = common.Name(fmt.Sprintf("normalaccta%d", nonce))
@@ -349,13 +349,13 @@ func main() {
 
 	time.Sleep(10 * time.Second)
 
-	b, _ := testcommon.GetAccountBalanceByID(contract_a, 0)
+	b, _ := testcommon.GetAccountBalanceByAssetID(contract_a, 0)
 	fmt.Println("balance ", b)
 	withdrawFee()
 
 	time.Sleep(10 * time.Second)
 
-	b, _ = testcommon.GetAccountBalanceByID(contract_a, 0)
+	b, _ = testcommon.GetAccountBalanceByAssetID(contract_a, 0)
 	fmt.Println("balance after withdraw ", b) //shoud be 1000000028786
 }
 

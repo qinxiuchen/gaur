@@ -85,10 +85,10 @@ func GetNonce(accountname common.Name) (uint64, error) {
 	return *nonce, err
 }
 
-// GetAccountBalanceByID get balance by name ,assetID and number.
-func GetAccountBalanceByID(accountName common.Name, assetID uint64) (*big.Int, error) {
+// GetAccountBalanceByAssetID get balance by name ,assetID and number.
+func GetAccountBalanceByAssetID(accountName common.Name, assetID uint64) (*big.Int, error) {
 	balance := big.NewInt(0)
-	err := ClientCall("account_getAccountBalanceByID", balance, accountName, assetID, 1)
+	err := ClientCall("account_GetAccountBalanceByAssetID", balance, accountName, assetID, 1)
 	return balance, err
 }
 

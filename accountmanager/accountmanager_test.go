@@ -94,7 +94,7 @@ func TestNN(t *testing.T) {
 	if err := acctm.CreateAccount(common.Name("a123asdf2"), common.Name(""), 0, *new(common.PubKey), ""); err != nil {
 		t.Errorf("err create account\n")
 	}
-	_, err := acctm.GetAccountBalanceByID(common.Name("a123asdf2"), 1, 0)
+	_, err := acctm.GetAccountBalanceByAssetID(common.Name("a123asdf2"), 1, 0)
 	if err == nil {
 		t.Errorf("err get balance err %v\n", err)
 	}
@@ -563,7 +563,7 @@ func TestAccountManager_IsValidSign(t *testing.T) {
 	}
 }
 
-func TestAccountManager_GetAccountBalanceByID(t *testing.T) {
+func TestAccountManager_GetAccountBalanceByAssetID(t *testing.T) {
 	type fields struct {
 		sdb *state.StateDB
 		ast *asset.Asset
@@ -578,12 +578,12 @@ func TestAccountManager_GetAccountBalanceByID(t *testing.T) {
 	if err != nil {
 		t.Errorf("GetAssetIdByName ziz err")
 	}
-	t.Logf("GetAccountBalanceByID asset id=%v", id)
+	t.Logf("GetAccountBalanceByAssetID asset id=%v", id)
 	if err := acctm.AddAccountBalanceByID(common.Name("a123456789aeee"), id, big.NewInt(800)); err != nil {
 		t.Errorf("%q. GetAccountByName.AddBalanceByName() error = %v, ", common.Name("a123456789aeee"), err)
 	}
 
-	val, _ := acctm.GetAccountBalanceByID(common.Name("a123456789aeee"), id, 0)
+	val, _ := acctm.GetAccountBalanceByAssetID(common.Name("a123456789aeee"), id, 0)
 	t.Logf("a123456789aeee asset id=%v : val=%v\n", id, val)
 
 	tests := []struct {
@@ -608,18 +608,18 @@ func TestAccountManager_GetAccountBalanceByID(t *testing.T) {
 			sdb: tt.fields.sdb,
 			ast: tt.fields.ast,
 		}
-		got, err := am.GetAccountBalanceByID(tt.args.accountName, tt.args.assetID, 0)
+		got, err := am.GetAccountBalanceByAssetID(tt.args.accountName, tt.args.assetID, 0)
 		if (err != nil) != tt.wantErr {
-			t.Errorf("%q. AccountManager.GetAccountBalanceByID() error = %v, wantErr %v", tt.name, err, tt.wantErr)
+			t.Errorf("%q. AccountManager.GetAccountBalanceByAssetID() error = %v, wantErr %v", tt.name, err, tt.wantErr)
 			continue
 		}
 		if !reflect.DeepEqual(got, tt.want) {
-			t.Errorf("%q. AccountManager.GetAccountBalanceByID() = %v, want %v", tt.name, got, tt.want)
+			t.Errorf("%q. AccountManager.GetAccountBalanceByAssetID() = %v, want %v", tt.name, got, tt.want)
 		}
 	}
-	val, _ = acctm.GetAccountBalanceByID(common.Name("a123456789aeee"), id, 0)
+	val, _ = acctm.GetAccountBalanceByAssetID(common.Name("a123456789aeee"), id, 0)
 	if val.Cmp(big.NewInt(800)) != 0 {
-		t.Errorf("TestAccountManager_GetAccountBalanceByID = %v", val)
+		t.Errorf("TestAccountManager_GetAccountBalanceByAssetID = %v", val)
 	}
 }
 
@@ -1087,7 +1087,7 @@ func TestAccountManager_EnoughAccountBalance(t *testing.T) {
 		{"notenough", fields{sdb, ast}, args{common.Name("a123456789aeee"), 0, big.NewInt(1001)}, true},
 	}
 
-	//val, _ := acctm.GetAccountBalanceByID(common.Name("a123456789aeee"), 1)
+	//val, _ := acctm.GetAccountBalanceByAssetID(common.Name("a123456789aeee"), 1)
 	//t.Logf("EnoughAccountBalance asset id=%v : val=%v\n", 1, val)
 
 	for _, tt := range tests {
@@ -1099,7 +1099,7 @@ func TestAccountManager_EnoughAccountBalance(t *testing.T) {
 			t.Errorf("%q. AccountManager.EnoughAccountBalance() error = %v, wantErr %v", tt.name, err, tt.wantErr)
 		}
 	}
-	val, _ := acctm.GetAccountBalanceByID(common.Name("a123456789aeee"), 0, 0)
+	val, _ := acctm.GetAccountBalanceByAssetID(common.Name("a123456789aeee"), 0, 0)
 	if val.Cmp(big.NewInt(1000)) != 0 {
 		t.Logf("TestAccountManager_EnoughAccountBalance = %v", val)
 	}
@@ -1306,12 +1306,12 @@ func TestAccountManager_TransferAsset(t *testing.T) {
 		{"tranferok", fields{sdb, ast}, args{common.Name("a123456789aeee"), common.Name("a123456789aeed"), 0, big.NewInt(3)}, false},
 		{"tranferfail", fields{sdb, ast}, args{common.Name("a123456789aeee"), common.Name("a123456789aeed"), 0, big.NewInt(-3)}, true},
 	}
-	val, err := acctm.GetAccountBalanceByID(common.Name("a123456789aeee"), 0, 0)
+	val, err := acctm.GetAccountBalanceByAssetID(common.Name("a123456789aeee"), 0, 0)
 	if err != nil {
-		t.Error("TransferAsset GetAccountBalanceByID err")
+		t.Error("TransferAsset GetAccountBalanceByAssetID err")
 	}
 	if val.Cmp(big.NewInt(1000)) != 0 {
-		t.Errorf("TransferAsset GetAccountBalanceByID val=%v", val)
+		t.Errorf("TransferAsset GetAccountBalanceByAssetID val=%v", val)
 	}
 
 	for _, tt := range tests {
@@ -1323,12 +1323,12 @@ func TestAccountManager_TransferAsset(t *testing.T) {
 			t.Errorf("%q. AccountManager.TransferAsset() error = %v, wantErr %v", tt.name, err, tt.wantErr)
 		}
 	}
-	val1, err := acctm.GetAccountBalanceByID(common.Name("a123456789aeee"), 0, 0)
+	val1, err := acctm.GetAccountBalanceByAssetID(common.Name("a123456789aeee"), 0, 0)
 	if err != nil {
-		t.Error("TransferAsset GetAccountBalanceByID err")
+		t.Error("TransferAsset GetAccountBalanceByAssetID err")
 	}
 	if val1.Cmp(big.NewInt(997)) != 0 {
-		t.Errorf("TransferAsset1 GetAccountBalanceByID val=%v", val1)
+		t.Errorf("TransferAsset1 GetAccountBalanceByAssetID val=%v", val1)
 	}
 
 }
@@ -1631,11 +1631,11 @@ func TestAccountManager_Process(t *testing.T) {
 	if asset2.GetAssetOwner() != "a123456789aeee" {
 		t.Errorf("Process set asset owner failure =%v", asset2.GetAssetName())
 	}
-	val, err := acctm.GetAccountBalanceByID(common.Name("a123456789aeee"), 0, 0)
+	val, err := acctm.GetAccountBalanceByAssetID(common.Name("a123456789aeee"), 0, 0)
 	if err != nil {
-		t.Error("Process GetAccountBalanceByID err")
+		t.Error("Process GetAccountBalanceByAssetID err")
 	}
-	//t.Logf("Process GetAccountBalanceByID val=%v", val)
+	//t.Logf("Process GetAccountBalanceByAssetID val=%v", val)
 
 	ac, err := acctm.GetAccountByName(common.Name("a123asdf2"))
 	if err != nil {
@@ -1936,12 +1936,12 @@ func TestAccountManager_TransferContractAsset(t *testing.T) {
 		{"tranferok", fields{sdb, ast}, args{common.Name("a123456789aeee"), common.Name("a123456789aeed"), ast1.AssetId, big.NewInt(3)}, false},
 		{"tranferfail", fields{sdb, ast}, args{common.Name("a123456789aeed"), common.Name("a123456789aeed"), ast1.AssetId, big.NewInt(3)}, true},
 	}
-	val, err := acctm.GetAccountBalanceByID(common.Name("a123456789aeee"), ast1.AssetId, 0)
+	val, err := acctm.GetAccountBalanceByAssetID(common.Name("a123456789aeee"), ast1.AssetId, 0)
 	if err != nil {
-		t.Error("TransferAsset GetAccountBalanceByID err")
+		t.Error("TransferAsset GetAccountBalanceByAssetID err")
 	}
 	if val.Cmp(big.NewInt(1000)) != 0 {
-		t.Errorf("TransferAsset GetAccountBalanceByID val=%v", val)
+		t.Errorf("TransferAsset GetAccountBalanceByAssetID val=%v", val)
 	}
 
 	for _, tt := range tests {
@@ -1953,12 +1953,12 @@ func TestAccountManager_TransferContractAsset(t *testing.T) {
 			t.Errorf("%q. AccountManager.TransferAsset() error = %v, wantErr %v", tt.name, err, tt.wantErr)
 		}
 	}
-	val1, err := acctm.GetAccountBalanceByID(common.Name("a123456789aeee"), ast1.AssetId, 0)
+	val1, err := acctm.GetAccountBalanceByAssetID(common.Name("a123456789aeee"), ast1.AssetId, 0)
 	if err != nil {
-		t.Error("TransferAsset GetAccountBalanceByID err")
+		t.Error("TransferAsset GetAccountBalanceByAssetID err")
 	}
 	if val1.Cmp(big.NewInt(997)) != 0 {
-		t.Errorf("TransferAsset1 GetAccountBalanceByID val=%v", val1)
+		t.Errorf("TransferAsset1 GetAccountBalanceByAssetID val=%v", val1)
 	}
 }
 func TestAccountManager_ProcessContractAsset(t *testing.T) {

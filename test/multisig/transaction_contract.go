@@ -83,7 +83,7 @@ func generateAccount() {
 	c_author_0_priv = newPrivateKey_c
 	fmt.Println("priv_c ", hex.EncodeToString(crypto.FromECDSA(newPrivateKey_c)), " pubKey_c ", pubKey_c.String())
 
-	balance, _ := testcommon.GetAccountBalanceByID(from, assetID)
+	balance, _ := testcommon.GetAccountBalanceByAssetID(from, assetID)
 	balance.Div(balance, big.NewInt(10))
 
 	aca = common.Name(fmt.Sprintf("accounta%d", nonce))

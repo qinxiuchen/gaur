@@ -150,9 +150,6 @@ func NewAccountManager(db *state.StateDB) (*AccountManager, error) {
 func (am *AccountManager) InitAccountCounter() {
 	_, err := am.getAccountCounter()
 	if err == ErrCounterNotExist {
-		//var counterID uint64
-		//counterID = 0
-		//store assetCount
 		b, err := rlp.EncodeToBytes(&counterID)
 		if err != nil {
 			panic(err)
@@ -317,19 +314,6 @@ func (am *AccountManager) CreateAccount(accountName common.Name, founderName com
 	return nil
 }
 
-//SetChargeRatio set the Charge Ratio of the account
-// func (am *AccountManager) SetChargeRatio(accountName common.Name, ra uint64) error {
-// 	acct, err := am.GetAccountByName(accountName)
-// 	if acct == nil {
-// 		return ErrAccountNotExist
-// 	}
-// 	if err != nil {
-// 		return err
-// 	}
-// 	acct.SetChargeRatio(ra)
-// 	return am.SetAccount(acct)
-// }
-
 //UpdateAccount update the pubkey of the account
 func (am *AccountManager) UpdateAccount(accountName common.Name, accountAction *UpdataAccountAction) error {
 	acct, err := am.GetAccountByName(accountName)
@@ -443,7 +427,7 @@ func (am *AccountManager) GetAccountIDByName(accountName common.Name) (uint64, e
 //GetAccountById get account by account id
 func (am *AccountManager) GetAccountById(id uint64) (*Account, error) {
 	if id == 0 {
-		return nil, ErrAccountNotExist
+		return nil, ErrAccountIdInvalid
 	}
 
 	b, err := am.sdb.Get(acctManagerName, acctInfoPrefix+strconv.FormatUint(id, 10))
@@ -775,8 +759,8 @@ func (am *AccountManager) GetBalanceByTime(accountName common.Name, assetID uint
 	}
 }
 
-//GetAccountBalanceByID get account balance by ID
-func (am *AccountManager) GetAccountBalanceByID(accountName common.Name, assetID uint64, typeID uint64) (*big.Int, error) {
+//GetAccountBalanceByAssetID get account balance by ID
+func (am *AccountManager) GetAccountBalanceByAssetID(accountName common.Name, assetID uint64, typeID uint64) (*big.Int, error) {
 	acct, err := am.GetAccountByName(accountName)
 	if err != nil {
 		return big.NewInt(0), err

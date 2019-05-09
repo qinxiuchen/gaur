@@ -446,7 +446,7 @@ func (tp *TxPool) validateTx(tx *types.Transaction, local bool) error {
 		}
 
 		// Transactor should have enough funds to cover the gas costs
-		balance, err := tp.curAccountManager.GetAccountBalanceByID(from, tx.GasAssetID(), 0)
+		balance, err := tp.curAccountManager.GetAccountBalanceByAssetID(from, tx.GasAssetID(), 0)
 		if err != nil {
 			return err
 		}
@@ -457,7 +457,7 @@ func (tp *TxPool) validateTx(tx *types.Transaction, local bool) error {
 		}
 
 		// Transactor should have enough funds to cover the value costs
-		balance, err = tp.curAccountManager.GetAccountBalanceByID(from, action.AssetID(), 0)
+		balance, err = tp.curAccountManager.GetAccountBalanceByAssetID(from, action.AssetID(), 0)
 		if err != nil {
 			return err
 		}
@@ -892,11 +892,11 @@ func (tp *TxPool) promoteExecutables(accounts []common.Name) {
 		}
 		// Drop all transactions that are too costly (low balance or out of gas or no permissions)
 		// todo assetID
-		balance, err := tp.curAccountManager.GetAccountBalanceByID(name, tp.config.GasAssetID, 0)
+		balance, err := tp.curAccountManager.GetAccountBalanceByAssetID(name, tp.config.GasAssetID, 0)
 		if err != nil {
 			log.Error("promoteExecutables current account manager get balance err ", "name", name, "assetID", tp.config.GasAssetID, "err", err)
 		}
-		drops, _ := list.Filter(balance, tp.currentMaxGas, tp.signer, tp.curAccountManager.GetAccountBalanceByID, tp.curAccountManager.RecoverTx)
+		drops, _ := list.Filter(balance, tp.currentMaxGas, tp.signer, tp.curAccountManager.GetAccountBalanceByAssetID, tp.curAccountManager.RecoverTx)
 		for _, tx := range drops {
 			hash := tx.Hash()
 			log.Trace("Removed unpayable queued or no permissions transaction", "hash", hash)
@@ -1077,12 +1077,12 @@ func (tp *TxPool) demoteUnexecutables() {
 		}
 
 		// Drop all transactions that are too costly (low balance or out of gas or no permissions), and queue any invalids back for later
-		gasBalance, err := tp.curAccountManager.GetAccountBalanceByID(name, tp.config.GasAssetID, 0)
+		gasBalance, err := tp.curAccountManager.GetAccountBalanceByAssetID(name, tp.config.GasAssetID, 0)
 		if err != nil && err != am.ErrAccountNotExist {
 			log.Error("promoteExecutables current account manager get balance err ", "name", name, "assetID", tp.config.GasAssetID, "err", err)
 		}
 
-		drops, invalids := list.Filter(gasBalance, tp.currentMaxGas, tp.signer, tp.curAccountManager.GetAccountBalanceByID, tp.curAccountManager.RecoverTx)
+		drops, invalids := list.Filter(gasBalance, tp.currentMaxGas, tp.signer, tp.curAccountManager.GetAccountBalanceByAssetID, tp.curAccountManager.RecoverTx)
 		for _, tx := range drops {
 			hash := tx.Hash()
 			log.Trace("Removed unpayable pending or no permissions transaction", "hash", hash)

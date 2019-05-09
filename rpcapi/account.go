@@ -79,7 +79,7 @@ func (aapi *AccountAPI) GetAccountBalanceByAssetID(ctx context.Context, accountN
 	if err != nil {
 		return nil, err
 	}
-	return am.GetAccountBalanceByID(accountName, assetID, typeID)
+	return am.GetAccountBalanceByAssetID(accountName, assetID, typeID)
 }
 
 //GetCode
