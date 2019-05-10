@@ -88,8 +88,8 @@ func TestSDB(t *testing.T) {
 	if s != "aaaa" {
 		fmt.Printf("err str = %v\n", s)
 	}
-
 }
+
 func TestNN(t *testing.T) {
 	if err := acctm.CreateAccount(common.Name("a123asdf2"), common.Name(""), 0, *new(common.PubKey), ""); err != nil {
 		t.Errorf("err create account\n")
@@ -112,7 +112,7 @@ func TestNewAccountManager(t *testing.T) {
 	}{
 
 		//
-		{"newnilacct", args{nil}, nil, ErrNewAccountErr},
+		{"newnilacct", args{nil}, nil, ErrInvalidDB},
 		{"newacct", args{sdb}, acctm, nil},
 		//{"newacctErr", args{getStateDB(t)}, nil, true},
 	}

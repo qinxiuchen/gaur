@@ -22,7 +22,6 @@ import (
 	"regexp"
 	"strconv"
 
-	"github.com/ethereum/go-ethereum/log"
 	"github.com/fractalplatform/fractal/asset"
 	"github.com/fractalplatform/fractal/common"
 	"github.com/fractalplatform/fractal/crypto"
@@ -119,24 +118,35 @@ func SetAccountNameConfig(config *Config) bool {
 	acctRegExp = regexp
 	return true
 }
+
 func GetAcountNameRegExp() *regexp.Regexp {
 	return acctRegExp
 }
 
 //SetAcctMangerName  set the global account manager name
-func SetAcctMangerName(name common.Name) {
+func SetAcctMangerName(name common.Name) error {
+	if name == "" {
+		return ErrAccountNameInvalid
+	}
+
 	acctManagerName = name.String()
+	return nil
+}
+
+func CheckAccountManagerName() bool {
+	if len(acctManagerName) == 0 {
+		panic("account manager name is nil")
+	}
+	return true
 }
 
 //NewAccountManager create new account manager
 func NewAccountManager(db *state.StateDB) (*AccountManager, error) {
 	if db == nil {
-		return nil, ErrNewAccountErr
+		return nil, ErrInvalidDB
 	}
-	if len(acctManagerName) == 0 {
-		log.Error("NewAccountManager error", "name", ErrAccountManagerNotExist, acctManagerName)
-		return nil, ErrAccountManagerNotExist
-	}
+
+	CheckAccountManagerName()
 	am := &AccountManager{
 		sdb: db,
 		ast: asset.NewAsset(db),
@@ -149,59 +159,59 @@ func NewAccountManager(db *state.StateDB) (*AccountManager, error) {
 //InitAccountCounter init account manage counter
 func (am *AccountManager) InitAccountCounter() {
 	_, err := am.getAccountCounter()
-	if err == ErrCounterNotExist {
-		b, err := rlp.EncodeToBytes(&counterID)
-		if err != nil {
-			panic(err)
+	if err != nil {
+		if err == ErrCounterNotExist {
+			b, err := rlp.EncodeToBytes(&counterID)
+			if err != nil {
+				panic(fmt.Sprintf("account global counter init error, %v", err))
+			}
+			am.sdb.Put(acctManagerName, counterPrefix, b)
+		} else {
+			panic(fmt.Sprintf("account global counter init failed, %v", err))
 		}
-		am.sdb.Put(acctManagerName, counterPrefix, b)
 	}
-	return
 }
 
-//getAccountCounter get account counter cur value
+//getAccountCounter get account counter current value
 func (am *AccountManager) getAccountCounter() (uint64, error) {
 	b, err := am.sdb.Get(acctManagerName, counterPrefix)
 	if err != nil {
 		return 0, err
 	}
+
 	if len(b) == 0 {
 		return 0, ErrCounterNotExist
 	}
+
 	var accountCounter uint64
 	err = rlp.DecodeBytes(b, &accountCounter)
 	if err != nil {
-		return 0, err
+		panic(fmt.Sprintf("account global counter get error , %v", err))
 	}
 	return accountCounter, nil
 }
 
 // AccountIsExist check account is exist.
 func (am *AccountManager) AccountIsExist(accountName common.Name) (bool, error) {
-	//check is exist
-	accountID, err := am.GetAccountIDByName(accountName)
-	if err != nil {
-		return false, err
+	if accountName == "" {
+		return false, ErrAccountNameInvalid
 	}
-	if accountID > 0 {
-		return true, nil
-	} else {
-		return false, nil
-	}
-}
 
-// AccountIDIsExist check account is exist by ID.
-func (am *AccountManager) AccountIDIsExist(accountID uint64) (bool, error) {
-	//check is exist
-	account, err := am.GetAccountById(accountID)
+	b, err := am.sdb.Get(acctManagerName, accountNameIDPrefix+accountName.String())
 	if err != nil {
 		return false, err
 	}
-	if account != nil {
-		return true, nil
-	} else {
+
+	if len(b) == 0 {
 		return false, nil
 	}
+
+	var accountID uint64
+	if err := rlp.DecodeBytes(b, &accountID); err != nil {
+		panic(err)
+	}
+
+	return true, nil
 }
 
 //AccountHaveCode check account have code
@@ -255,12 +265,14 @@ func (am *AccountManager) CreateAccount(accountName common.Name, founderName com
 	if !accountName.IsValid(acctRegExp) {
 		return fmt.Errorf("account %s is invalid", accountName.String())
 	}
+
 	//check is exist
-	accountID, err := am.GetAccountIDByName(accountName)
+	isExist, err := am.AccountIsExist(accountName)
 	if err != nil {
 		return err
 	}
-	if accountID > 0 {
+
+	if isExist {
 		return ErrAccountIsExist
 	}
 
@@ -272,13 +284,15 @@ func (am *AccountManager) CreateAccount(accountName common.Name, founderName com
 
 	var fname common.Name
 	if len(founderName.String()) > 0 && founderName != accountName {
-		f, err := am.GetAccountByName(founderName)
+		isExist, err := am.AccountIsExist(founderName)
 		if err != nil {
 			return err
 		}
-		if f == nil {
+
+		if !isExist {
 			return ErrAccountNotExist
 		}
+
 		fname.SetString(founderName.String())
 	} else {
 		fname.SetString(accountName.String())
@@ -413,36 +427,38 @@ func (am *AccountManager) GetAccountIDByName(accountName common.Name) (uint64, e
 	if err != nil {
 		return 0, err
 	}
+
 	if len(b) == 0 {
 		return 0, ErrAccountNotExist
 	}
 
 	var accountID uint64
 	if err := rlp.DecodeBytes(b, &accountID); err != nil {
-		return 0, err
+		panic(err)
 	}
 	return accountID, nil
 }
 
 //GetAccountById get account by account id
-func (am *AccountManager) GetAccountById(id uint64) (*Account, error) {
-	if id == 0 {
+func (am *AccountManager) GetAccountById(accountID uint64) (*Account, error) {
+	if accountID == 0 {
 		return nil, ErrAccountIdInvalid
 	}
 
-	b, err := am.sdb.Get(acctManagerName, acctInfoPrefix+strconv.FormatUint(id, 10))
-
+	b, err := am.sdb.Get(acctManagerName, acctInfoPrefix+strconv.FormatUint(accountID, 10))
 	if err != nil {
 		return nil, err
 	}
+
 	if len(b) == 0 {
-		log.Debug("account not exist", "id", ErrAccountNotExist, id)
 		return nil, ErrAccountNotExist
 	}
+
 	var acct Account
 	if err := rlp.DecodeBytes(b, &acct); err != nil {
-		return nil, err
+		panic(err)
 	}
+
 	return &acct, nil
 }
 
@@ -451,15 +467,16 @@ func (am *AccountManager) SetAccount(acct *Account) error {
 	if acct == nil {
 		return ErrAccountIsNil
 	}
+
 	if acct.IsDestroyed() == true {
 		return ErrAccountIsDestroy
 	}
+
 	b, err := rlp.EncodeToBytes(acct)
 	if err != nil {
 		return err
 	}
 
-	//am.sdb.Put(acctManagerName, acctInfoPrefix+acct.GetName().String(), b)
 	am.sdb.Put(acctManagerName, acctInfoPrefix+strconv.FormatUint(acct.GetAccountID(), 10), b)
 	return nil
 }
@@ -468,10 +485,7 @@ func (am *AccountManager) SetAccount(acct *Account) error {
 func (am *AccountManager) DeleteAccountByName(accountName common.Name) error {
 	acct, err := am.GetAccountByName(accountName)
 	if err != nil {
-		return ErrAccountNotExist
-	}
-	if acct == nil {
-		return ErrAccountNotExist
+		return err
 	}
 
 	acct.SetDestroy()
@@ -479,6 +493,7 @@ func (am *AccountManager) DeleteAccountByName(accountName common.Name) error {
 	if err != nil {
 		return err
 	}
+
 	am.sdb.Put(acct.GetName().String(), acctInfoPrefix, b)
 	return nil
 }
@@ -489,9 +504,7 @@ func (am *AccountManager) GetNonce(accountName common.Name) (uint64, error) {
 	if err != nil {
 		return 0, err
 	}
-	if acct == nil {
-		return 0, ErrAccountNotExist
-	}
+
 	return acct.GetNonce(), nil
 }
 
@@ -501,9 +514,7 @@ func (am *AccountManager) SetNonce(accountName common.Name, nonce uint64) error 
 	if err != nil {
 		return err
 	}
-	if acct == nil {
-		return ErrAccountNotExist
-	}
+
 	acct.SetNonce(nonce)
 	return am.SetAccount(acct)
 }
@@ -514,9 +525,7 @@ func (am *AccountManager) GetAuthorVersion(accountName common.Name) (common.Hash
 	if err != nil {
 		return common.Hash{}, err
 	}
-	if acct == nil {
-		return common.Hash{}, ErrAccountNotExist
-	}
+
 	return acct.GetAuthorVersion(), nil
 }
 
@@ -571,9 +580,7 @@ func (am *AccountManager) IsValidSign(accountName common.Name, pub common.PubKey
 	if err != nil {
 		return err
 	}
-	if acct == nil {
-		return ErrAccountNotExist
-	}
+
 	if acct.IsDestroyed() {
 		return ErrAccountIsDestroy
 	}
@@ -593,9 +600,7 @@ func (am *AccountManager) ValidSign(accountName common.Name, pub common.PubKey, 
 	if err != nil {
 		return err
 	}
-	if acct == nil {
-		return ErrAccountNotExist
-	}
+
 	if acct.IsDestroyed() {
 		return ErrAccountIsDestroy
 	}
@@ -746,9 +751,6 @@ func (am *AccountManager) GetBalanceByTime(accountName common.Name, assetID uint
 	if err != nil {
 		return big.NewInt(0), err
 	}
-	if acct == nil {
-		return big.NewInt(0), ErrAccountNotExist
-	}
 
 	if typeID == 0 {
 		return acct.GetBalanceByID(assetID)
@@ -765,9 +767,7 @@ func (am *AccountManager) GetAccountBalanceByAssetID(accountName common.Name, as
 	if err != nil {
 		return big.NewInt(0), err
 	}
-	if acct == nil {
-		return big.NewInt(0), ErrAccountNotExist
-	}
+
 	if typeID == 0 {
 		return acct.GetBalanceByID(assetID)
 	} else if typeID == 1 {
@@ -829,9 +829,7 @@ func (am *AccountManager) GetFounder(accountName common.Name) (common.Name, erro
 	if err != nil {
 		return "", err
 	}
-	if acct == nil {
-		return "", ErrAccountNotExist
-	}
+
 	return acct.GetFounder(), nil
 }
 
@@ -840,65 +838,11 @@ func (am *AccountManager) GetAssetFounder(assetID uint64) (common.Name, error) {
 	return am.ast.GetAssetFounderById(assetID)
 }
 
-//GetChargeRatio Get Account ChargeRatio
-// func (am *AccountManager) GetChargeRatio(accountName common.Name) (uint64, error) {
-// 	acct, err := am.GetAccountByName(accountName)
-// 	if err != nil {
-// 		return 0, err
-// 	}
-// 	if acct == nil {
-// 		return 0, ErrAccountNotExist
-// 	}
-// 	return acct.GetChargeRatio(), nil
-// }
-
-//GetAssetChargeRatio Get Asset ChargeRatio
-// func (am *AccountManager) GetAssetChargeRatio(assetID uint64) (uint64, error) {
-// 	acctName, err := am.ast.GetAssetFounderById(assetID)
-// 	if err != nil {
-// 		return 0, err
-// 	}
-// 	if acctName == "" {
-// 		return 0, ErrAccountNotExist
-// 	}
-// 	return am.GetChargeRatio(acctName)
-// }
-
-//GetAccountBalanceByName get account balance by name
-//func (am *AccountManager) GetAccountBalanceByName(accountName common.Name, assetName string) (*big.Int, error) {
-//	acct, err := am.GetAccountByName(accountName)
-//	if err != nil {
-//		return big.NewInt(0), err
-//	}
-//	if acct == nil {
-//		return big.NewInt(0), ErrAccountNotExist
-//	}
-//
-//	assetID, err := am.ast.GetAssetIdByName(assetName)
-//	if err != nil {
-//		return big.NewInt(0), err
-//	}
-//	if assetID == 0 {
-//		return big.NewInt(0), asset.ErrAssetNotExist
-//	}
-//
-//	ba := &big.Int{}
-//	ba, err = acct.GetBalanceByID(assetID)
-//	if err != nil {
-//		return big.NewInt(0), err
-//	}
-//
-//	return ba, nil
-//}
-
 //SubAccountBalanceByID sub balance by assetID
 func (am *AccountManager) SubAccountBalanceByID(accountName common.Name, assetID uint64, value *big.Int) error {
 	acct, err := am.GetAccountByName(accountName)
 	if err != nil {
 		return err
-	}
-	if acct == nil {
-		return ErrAccountNotExist
 	}
 
 	if value.Cmp(big.NewInt(0)) < 0 {
@@ -919,9 +863,6 @@ func (am *AccountManager) AddAccountBalanceByID(accountName common.Name, assetID
 	if err != nil {
 		return err
 	}
-	if acct == nil {
-		return ErrAccountNotExist
-	}
 
 	if value.Cmp(big.NewInt(0)) < 0 {
 		return ErrAmountValueInvalid
@@ -940,9 +881,6 @@ func (am *AccountManager) AddAccountBalanceByName(accountName common.Name, asset
 	acct, err := am.GetAccountByName(accountName)
 	if err != nil {
 		return err
-	}
-	if acct == nil {
-		return ErrAccountNotExist
 	}
 
 	assetID, err := am.ast.GetAssetIdByName(assetName)
@@ -968,9 +906,7 @@ func (am *AccountManager) EnoughAccountBalance(accountName common.Name, assetID 
 	if err != nil {
 		return err
 	}
-	if acct == nil {
-		return ErrAccountNotExist
-	}
+
 	if value.Cmp(big.NewInt(0)) < 0 {
 		return ErrAmountValueInvalid
 	}
@@ -983,9 +919,7 @@ func (am *AccountManager) GetCode(accountName common.Name) ([]byte, error) {
 	if err != nil {
 		return nil, err
 	}
-	if acct == nil {
-		return nil, ErrAccountNotExist
-	}
+
 	return acct.GetCode()
 }
 
@@ -1016,9 +950,7 @@ func (am *AccountManager) GetCodeSize(accountName common.Name) (uint64, error) {
 	if err != nil {
 		return 0, err
 	}
-	if acct == nil {
-		return 0, ErrAccountNotExist
-	}
+
 	return acct.GetCodeSize(), nil
 }
 
@@ -1134,29 +1066,44 @@ func (am *AccountManager) IssueAnyAsset(fromName common.Name, asset IssueAsset, 
 //IssueAsset issue asset
 func (am *AccountManager) IssueAsset(asset IssueAsset, number uint64) (uint64, error) {
 	//check owner
-	acct, err := am.GetAccountByName(asset.Owner)
+	isExist, err := am.AccountIsExist(asset.Owner)
 	if err != nil {
 		return 0, err
 	}
-	if acct == nil {
+
+	if !isExist {
 		return 0, ErrAccountNotExist
 	}
+
 	//check founder
 	if len(asset.Founder) > 0 {
-		f, err := am.GetAccountByName(asset.Founder)
+		isExist, err := am.AccountIsExist(asset.Founder)
 		if err != nil {
 			return 0, err
 		}
-		if f == nil {
+
+		if !isExist {
 			return 0, ErrAccountNotExist
 		}
 	} else {
 		asset.Founder = asset.Owner
 	}
 
+	// check asset contract
+	if len(asset.Contract) > 0 {
+		if !asset.Contract.IsValid(acctRegExp) {
+			return 0, fmt.Errorf("account %s is invalid", asset.Contract.String())
+		}
+	}
+
+	// check asset name is not account name
 	name := common.StrToName(asset.AssetName)
-	accountID, _ := am.GetAccountIDByName(name)
-	if accountID > 0 {
+	isExist, err = am.AccountIsExist(name)
+	if err != nil {
+		return 0, err
+	}
+
+	if isExist {
 		return 0, ErrNameIsExist
 	}
 

@@ -54,9 +54,6 @@ func (aapi *AccountAPI) GetAccountByID(ctx context.Context, accountID uint64) (*
 	if err != nil {
 		return nil, err
 	}
-	if am == nil {
-		return nil, ErrGetAccounManagerErr
-	}
 	return am.GetAccountById(accountID)
 }
 
@@ -65,9 +62,6 @@ func (aapi *AccountAPI) GetAccountByName(ctx context.Context, accountName common
 	am, err := aapi.b.GetAccountManager()
 	if err != nil {
 		return nil, err
-	}
-	if am == nil {
-		return nil, ErrGetAccounManagerErr
 	}
 	return am.GetAccountByName(accountName)
 }
@@ -88,10 +82,6 @@ func (aapi *AccountAPI) GetCode(ctx context.Context, accountName common.Name) (h
 	if err != nil {
 		return nil, err
 	}
-	if acct == nil {
-		return nil, ErrGetAccounManagerErr
-	}
-
 	result, err := acct.GetCode(accountName)
 	if err != nil {
 		return nil, err
@@ -106,9 +96,6 @@ func (aapi *AccountAPI) GetNonce(ctx context.Context, accountName common.Name) (
 	if err != nil {
 		return 0, err
 	}
-	if acct == nil {
-		return 0, ErrGetAccounManagerErr
-	}
 	return acct.GetNonce(accountName)
 
 }
@@ -119,9 +106,6 @@ func (aapi *AccountAPI) GetAssetInfoByName(ctx context.Context, assetName string
 	if err != nil {
 		return nil, err
 	}
-	if acct == nil {
-		return nil, ErrGetAccounManagerErr
-	}
 	return acct.GetAssetInfoByName(assetName)
 }
 
@@ -130,9 +114,6 @@ func (aapi *AccountAPI) GetAssetInfoByID(ctx context.Context, assetID uint64) (*
 	acct, err := aapi.b.GetAccountManager()
 	if err != nil {
 		return nil, err
-	}
-	if acct == nil {
-		return nil, ErrGetAccounManagerErr
 	}
 	return acct.GetAssetInfoByID(assetID)
 }
@@ -143,9 +124,6 @@ func (aapi *AccountAPI) GetAssetAmountByTime(ctx context.Context, assetID uint64
 	if err != nil {
 		return nil, err
 	}
-	if am == nil {
-		return nil, ErrGetAccounManagerErr
-	}
 	return am.GetAssetAmountByTime(assetID, time)
 }
 
@@ -154,9 +132,6 @@ func (aapi *AccountAPI) GetAccountBalanceByTime(ctx context.Context, accountName
 	am, err := aapi.b.GetAccountManager()
 	if err != nil {
 		return nil, err
-	}
-	if am == nil {
-		return nil, ErrGetAccounManagerErr
 	}
 	return am.GetBalanceByTime(accountName, assetID, typeID, time)
 }
@@ -170,6 +145,5 @@ func (aapi *AccountAPI) GetSnapshotTime(typeID uint64, time uint64) (uint64, err
 	if err != nil {
 		return 0, err
 	}
-
 	return am.GetSnapshotTime(typeID, time)
 }

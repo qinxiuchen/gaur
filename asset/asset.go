@@ -112,7 +112,7 @@ func (a *Asset) GetAssetIdByName(assetName string) (uint64, error) {
 	}
 	var assetID uint64
 	if err := rlp.DecodeBytes(b, &assetID); err != nil {
-		return 0, err
+		panic(err)
 	}
 	return assetID, nil
 }

@@ -49,4 +49,5 @@ var (
 	ErrInvalidReceiptAsset    = errors.New("invalid receipt of asset")
 	ErrInvalidReceipt         = errors.New("invalid receipt")
 	ErrNegativeValue          = errors.New("negative value")
+	ErrInvalidDB              = errors.New("invalid state db")
 )

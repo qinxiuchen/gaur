@@ -251,6 +251,7 @@ func (b *APIBackend) GetAccountManager() (*accountmanager.AccountManager, error)
 	if err != nil {
 		return nil, err
 	}
+
 	acctm, err := accountmanager.NewAccountManager(sdb)
 	if err != nil {
 		return nil, err
