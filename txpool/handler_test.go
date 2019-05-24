@@ -25,6 +25,7 @@ import (
 	"github.com/fractalplatform/fractal/asset"
 	"github.com/fractalplatform/fractal/common"
 	"github.com/fractalplatform/fractal/event"
+	"github.com/fractalplatform/fractal/p2p/enode"
 	"github.com/fractalplatform/fractal/params"
 	"github.com/fractalplatform/fractal/state"
 	"github.com/fractalplatform/fractal/types"
@@ -53,6 +54,34 @@ func NodesGen(num int) []string {
 	return nodes
 }
 
+func TestBloomTx(t *testing.T) {
+	bloom := new(types.Bloom)
+	addList := []string{
+		"fnode://17279f70f96e367dbb883e00fcc67293e79c8370703b4eed3c40cf1755a7c147953ca64bd119e3141176eade9c27132c5de48cbe834de2868bb6027d845ba49b@121.69.28.78:48798",
+	}
+	testList := []string{
+		"fnode://1bb05f1e054bb1c3a5704a190d324f251318b45146387505bbb92d9c35689ef222b8f0d769ccdf06bdabfe41fc5c6f290e3e2376dc1e66b1d439a9f1047d69a0@192.188.0.7:55001",
+	}
+	for _, fnode := range addList {
+		node, err := enode.ParseV4(fnode)
+		if err != nil {
+			t.Fatal(err)
+		}
+		id := node.ID().Bytes()
+		bloom.Add(new(big.Int).SetBytes(id[:8]))
+		if !bloom.TestBytes(id[:8]) {
+			t.Fatal("bloom test failed!")
+		}
+	}
+	for _, fnode := range testList {
+		node, err := enode.ParseV4(fnode)
+		if err != nil {
+			t.Fatal(err)
+		}
+		id := node.ID().Bytes()
+		t.Log(bloom.TestBytes(id[:8]), fnode)
+	}
+}
 func TestBloom(t *testing.T) {
 	var (
 		txs     = TxsGen(TxNum)

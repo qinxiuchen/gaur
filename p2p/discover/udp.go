@@ -729,6 +729,7 @@ func (req *findnode) handle(t *udp, from *net.UDPAddr, fromKey encPubkey, mac []
 func (req *findnode) name() string { return "FINDNODE/v4" }
 
 func (req *neighbors) handle(t *udp, from *net.UDPAddr, fromKey encPubkey, mac []byte) error {
+	fmt.Println("--------------expiration:", expired(req.Expiration), req)
 	if expired(req.Expiration) {
 		return errExpired
 	}

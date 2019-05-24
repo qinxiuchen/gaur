@@ -492,6 +492,11 @@ func (dl *Downloader) loop() {
 	download := func() {
 		//for status := dl.bestStation(); dl.download(status); {
 		for status := dl.bestStation(); dl.multiplexDownload(status); {
+			select {
+			case <-dl.quit:
+				return
+			default:
+			}
 		}
 	}
 	timer := time.NewTimer(10 * time.Second)

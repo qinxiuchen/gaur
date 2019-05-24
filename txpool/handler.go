@@ -23,8 +23,10 @@ import (
 	"sync/atomic"
 	"time"
 
+	"github.com/ethereum/go-ethereum/log"
 	"github.com/fractalplatform/fractal/common"
 	router "github.com/fractalplatform/fractal/event"
+	adaptor "github.com/fractalplatform/fractal/p2p/protoadaptor"
 	"github.com/fractalplatform/fractal/types"
 )
 
@@ -212,6 +214,7 @@ func (s *TxpoolStation) addTxs(txs []*TransactionWithPath, from string) []*types
 }
 
 func (s *TxpoolStation) broadcast(txs []*types.Transaction) {
+	log.Info("broadcast-1:", "peers:", len(s.peers), "txs:", len(txs))
 	if len(s.peers) == 0 {
 		return
 	}
@@ -261,6 +264,7 @@ func (s *TxpoolStation) broadcast(txs []*types.Transaction) {
 		}
 	}
 
+	log.Info("broadcast-2:", "peers", len(s.peers), "txs", len(txs), "sendTask", len(sendTask))
 	if len(sendTask) == 0 {
 		return
 	}
@@ -268,6 +272,7 @@ func (s *TxpoolStation) broadcast(txs []*types.Transaction) {
 	s.loopWG.Add(1)
 	go func() {
 		for peerInfo, txs := range sendTask {
+			log.Info("broadcast-3:", "peers", len(s.peers), "txs", len(txs), "sendTask:", len(sendTask), "node", adaptor.GetFnode(peerInfo.peer))
 			router.SendTo(nil, peerInfo.peer, router.P2PTxMsg, txs)
 			peerInfo.setIdle()
 		}
@@ -290,6 +295,7 @@ func (s *TxpoolStation) handleMsg() {
 				txs := e.Data.([]*TransactionWithPath)
 				//fmt.Printf("bloom:%x\n", *txs[0].Bloom)
 				rawTxs := s.addTxs(txs, e.From.Name())
+				log.Info("P2PTxMsg:", "txs:", len(txs), "rawTxs", len(rawTxs))
 				if len(rawTxs) > 0 {
 					s.loopWG.Add(1)
 					go func() {
@@ -314,19 +320,22 @@ func (s *TxpoolStation) handleMsg() {
 
 func (s *TxpoolStation) syncTransactions(peer *peerInfo) {
 	var txs []*TransactionWithPath
-	pending, _ := s.txpool.Pending()
+	log.Info("syncTransactions: s.txpool.Pending()...")
+	pending, err := s.txpool.Pending()
 	for _, batch := range pending {
 		for _, tx := range batch {
 			bloom := s.cache.copyTxBloom(tx, &types.Bloom{})
 			txs = append(txs, &TransactionWithPath{Tx: tx, Bloom: bloom})
 		}
 	}
+	log.Info("syncTransactions: s.txpool.Pending():", "err", err, "pending", len(pending), "txs", len(txs))
 	if len(txs) == 0 {
 		peer.setIdle()
 		return
 	}
 	s.loopWG.Add(1)
 	go func() {
+		log.Info("syncTransactions: SendTo:", "txs", len(txs), "node", adaptor.GetFnode(peer.peer))
 		router.SendTo(nil, peer.peer, router.P2PTxMsg, txs)
 		peer.setIdle()
 		s.loopWG.Done()
