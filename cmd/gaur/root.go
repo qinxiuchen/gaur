@@ -43,9 +43,9 @@ var (
 
 // RootCmd represents the base command when called without any subcommands
 var RootCmd = &cobra.Command{
-	Use:   "ft",
-	Short: "ft is a Leading High-performance Ledger",
-	Long:  `ft is a Leading High-performance Ledger`,
+	Use:   "gaur",
+	Short: "gaur is a Leading High-performance Ledger",
+	Long:  `gaur is a Leading High-performance Ledger`,
 	// Uncomment the following line if your bare application
 	// has an action associated with it:
 	Run: func(cmd *cobra.Command, args []string) {
@@ -72,17 +72,17 @@ var RootCmd = &cobra.Command{
 
 		node, err := makeNode()
 		if err != nil {
-			log.Error("ft make node failed.", "err", err)
+			log.Error("gaur make node failed.", "err", err)
 			return
 		}
 
 		if err := registerService(node); err != nil {
-			log.Error("ft register service failed.", "err", err)
+			log.Error("gaur register service failed.", "err", err)
 			return
 		}
 
 		if err := startNode(node); err != nil {
-			log.Error("ft start node failed.", "err", err)
+			log.Error("gaur start node failed.", "err", err)
 			return
 		}
 

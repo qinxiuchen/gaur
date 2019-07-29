@@ -19,17 +19,17 @@ REPO := $(shell pwd)
 GOFILES_NOVENDOR := $(shell go list -f "{{.Dir}}" ./...)
 PACKAGES_NOVENDOR := $(shell go list ./... | grep -v test)
 WORK_SPACE := ${REPO}/build/_workspace
-FT_DIR :=${WORK_SPACE}/src/github.com/qinxiuchen
+GAUR_DIR :=${WORK_SPACE}/src/github.com/qinxiuchen
 TEMP_GOPATH := $(GOPATH)
 
 export GOPATH := ${WORK_SPACE}
 
 define build
-	@cd ${FT_DIR}/gaur && go build -ldflags " \
+	@cd ${GAUR_DIR}/gaur && go build -ldflags " \
 	-X github.com/qinxiuchen/gaur/cmd/utils.commit=$(shell cat commit_hash.txt) \
 	-X github.com/qinxiuchen/gaur/cmd/utils.date=$(shell date '+%Y-%m-%d') \
 	-X 'github.com/qinxiuchen/gaur/cmd/utils.goversion=$(shell go version)'" \
-	-o ${FT_DIR}/gaur/build/bin/$(1) ./cmd/$(1)
+	-o ${GAUR_DIR}/gaur/build/bin/$(1) ./cmd/$(1)
 endef
 
 
@@ -66,31 +66,31 @@ commit_hash:
 
 .PHONY: build_workspace
 build_workspace:
-	@[ -d ${FT_DIR} ] || mkdir -p ${FT_DIR}
-	@[ -d ${FT_DIR}/gaur ] || ln -s ${REPO} ${FT_DIR}/gaur
+	@[ -d ${GAUR_DIR} ] || mkdir -p ${GAUR_DIR}
+	@[ -d ${GAUR_DIR}/gaur ] || ln -s ${REPO} ${GAUR_DIR}/gaur
 
 # build all targets 
 .PHONY: all
-all:check build_workspace build_ft build_ftfinder
+all:check build_workspace build_gaur build_gaurfinder
 
-# build ft
-.PHONY: build_ft
-build_ft: commit_hash check build_workspace
-	@echo "Building ft."
-	$(call build,ft)
+# build gaur
+.PHONY: build_gaur
+build_gaur: commit_hash check build_workspace
+	@echo "Building gaur."
+	$(call build,gaur)
 
 
-# build ftfinder
-.PHONY: build_ftfinder 
-build_ftfinder: commit_hash check build_workspace
-	@echo "Building ftfinder."
-	$(call build,ftfinder)
+# build gaurfinder
+.PHONY: build_gaurfinder
+build_gaurfinder: commit_hash check build_workspace
+	@echo "Building gaurfinder."
+	$(call build,gaurfinder)
 
 ### Test
 
 .PHONY: test 
 test: all
-	@cd ${FT_DIR}/gaur  && scripts/test.sh
+	@cd ${GAUR_DIR}/gaur  && scripts/test.sh
 
 .PHONY: test_win 
 test_win: 

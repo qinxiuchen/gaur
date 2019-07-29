@@ -1,0 +1,110 @@
+{
+	"config": {
+		"bootnodes": ["fnode://fca68e2f2853b550cc79e37ffacc32f9f86d6672a397beeedc668bb8fdbba7484930bd9041270cd1006097fcab010e8723e9af0e8011f734e6288d2fda486523@127.0.0.1:52696"],
+		"chainId": 1243,
+		"chainName": "gaurchain",
+		"chainUrl": "https://testnet.gaur.org",
+		"accountParams": {
+			"level": 3,
+			"alllength":31,
+			"mainminlength": 7,
+			"mainmaxlength": 16,
+			"subminlength":2,
+			"submaxlength":16
+		},
+		"assetParams": {
+			"level": 3,
+			"alllength":31,
+			"mainminlength": 2,
+			"mainmaxlength": 16,
+			"subminlength":1,
+			"submaxlength":8
+		},
+		"chargeParams": {
+			"assetRatio": 80,
+			"contractRatio": 80
+		},
+		"upgradeParams": {
+			"blockCnt": 10000,
+			"upgradeRatio": 80
+		},
+		"dposParams": {
+			"maxURLLen": 512,
+			"unitStake": 1000,
+			"candidateAvailableMinQuantity": 10,
+			"candidateMinQuantity": 10,
+			"voterMinQuantity": 1,
+			"activatedMinCandidate": 3,
+			"activatedMinQuantity": 100,
+			"blockInterval": 3000,
+			"blockFrequency": 6,
+			"candidateScheduleSize": 3,
+			"backupScheduleSize": 0,
+			"epochInterval": 1080000,
+			"freezeEpochSize": 3,
+			"extraBlockReward": 1,
+			"blockReward": 5
+		},
+		"snapshotInterval": 180000,
+		"systemName": "gaurchain.admin",
+		"accountName": "gaurchain.account",
+		"assetName": "gaurchain.asset",
+		"dposName": "gaurchain.dpos",
+		"feeName": "gaurchain.fee",
+		"systemToken": "gaurtoken"
+	},
+	"timestamp": 1560484800000,
+	"gasLimit": 30000000,
+	"difficulty": 131072,
+	"allocAccounts": [{
+		"name": "gaurchain.admin",
+		"founder": "gaurchain.admin",
+		"pubKey": "0x04bed08b5b5c6a34d9a808f321e387fe03e6ae6796d70a9861ba909b3d7bfb99f29e5fcd2b2ff4d749b26cdf4db9ecb06c0d28dd54d477c4f1c52cf7cd31e576f3"
+	}, {
+		"name": "gaurchain.account",
+		"founder": "gaurchain.admin",
+		"pubKey": "0x0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"
+	}, {
+		"name": "gaurchain.asset",
+		"founder": "gaurchain.admin",
+		"pubKey": "0x0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"
+	}, {
+		"name": "gaurchain.dpos",
+		"founder": "gaurchain.admin",
+		"pubKey": "0x0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"
+	}, {
+		"name": "gaurchain.fee",
+		"founder": "gaurchain.admin",
+		"pubKey": "0x0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"
+	}, {
+		"name": "gaurchain.miner1",
+		"founder": "gaurchain.admin",
+		"pubKey": "0x04b4829d9eac722af00104f50c1bda0235394df03e5762aae1778efe1e5bd3bc3029902d1da3979ac9fec30c2c03e2e61d613eb82c984cb48cdcc89a32ba58c64e"
+	}, {
+		"name": "gaurchain.miner2",
+		"founder": "gaurchain.admin",
+		"pubKey": "0x0482d62b63e8dc1826d1abed9d58ca6b27cf33a4b42470f8f069bf226110e9401e2228889598fd9673ba910db0bbd99a71ac2d8981281976fa05da6a79f7b51b06"
+	}, {
+		"name": "gaurchain.miner3",
+		"founder": "gaurchain.admin",
+		"pubKey": "0x048ab1d0ff808c16ac7bf518f4c9c8ea10b12cba8707358db1c5cf6abf3aedebb8189e46ff71ecc3fc557deb3c491c6f3587c7a228218abc932d666bff7fd5c9f0"
+	}, {
+		"name": "gaurchain.miner4",
+		"founder": "gaurchain.admin",
+		"pubKey": "0x048629bd9bcd43d08c0e6d51ec8afa89795763565429b66c3c4c472dcc830a60dd126d75e74bdd203388aaaad0466e3c358e87e3d9886515fddb87ed83b8cf12f8"
+	}, {
+		"name": "gaurchain.miner5",
+		"founder": "gaurchain.admin",
+		"pubKey": "0x04dab1b7d567430598604a91c815110944052e113733c2aa3c58f4387a7c04943b420045bc4082da8c56671212718a6b5634acf1758c36ea0933f3b08eed8a46cc"
+	}],
+	"allocCandidates": [],
+	"allocAssets": [{
+		"name": "gaurtoken",
+		"symbol": "gaur",
+		"amount": 10000000000000000000000000000,
+		"decimals": 18,
+		"founder": "gaurchain.admin",
+		"owner": "gaurchain.admin",
+		"upperLimit": 10000000000000000000000000000
+	}]
+}

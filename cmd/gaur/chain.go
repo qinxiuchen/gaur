@@ -63,7 +63,7 @@ func prueState(arg string) error {
 	}
 
 	result := new(types.BlockState)
-	clientCall(ipcEndpoint, &result, "ft_setStatePruning", enable)
+	clientCall(ipcEndpoint, &result, "gaur_setStatePruning", enable)
 	printJSON(result)
 	return nil
 }
