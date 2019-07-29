@@ -113,6 +113,22 @@ func GetAPIs(apiBackend Backend) []rpc.API {
 			Public:    true,
 		},
 		{
+			Namespace: "gaur",
+			Version:   "1.0",
+			Service:   NewPrivateBlockChainAPI(apiBackend),
+		},
+		{
+			Namespace: "gaur",
+			Version:   "1.0",
+			Service:   NewPublicBlockChainAPI(apiBackend),
+			Public:    true,
+		}, {
+			Namespace: "gaur",
+			Version:   "1.0",
+			Service:   NewPublicFractalAPI(apiBackend),
+			Public:    true,
+		},
+		{
 			Namespace: "account",
 			Version:   "1.0",
 			Service:   NewAccountAPI(apiBackend),
