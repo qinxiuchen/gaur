@@ -27,6 +27,7 @@ import (
 	"time"
 
 	"github.com/ethereum/go-ethereum/log"
+	lru "github.com/hashicorp/golang-lru"
 	"github.com/qinxiuchen/gaur/accountmanager"
 	"github.com/qinxiuchen/gaur/common"
 	"github.com/qinxiuchen/gaur/consensus"
@@ -35,7 +36,6 @@ import (
 	"github.com/qinxiuchen/gaur/snapshot"
 	"github.com/qinxiuchen/gaur/state"
 	"github.com/qinxiuchen/gaur/types"
-	lru "github.com/hashicorp/golang-lru"
 )
 
 var (

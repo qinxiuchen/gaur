@@ -31,10 +31,10 @@ import (
 
 	"github.com/ethereum/go-ethereum/common/fdlimit"
 	"github.com/ethereum/go-ethereum/log"
+	"github.com/naoina/toml"
 	"github.com/qinxiuchen/gaur/node"
 	"github.com/qinxiuchen/gaur/params"
 	"github.com/qinxiuchen/gaur/rpc"
-	"github.com/naoina/toml"
 	jww "github.com/spf13/jwalterweatherman"
 )
 

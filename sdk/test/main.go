@@ -15,10 +15,10 @@ import (
 	"strings"
 
 	"github.com/ethereum/go-ethereum/log"
-	"github.com/qinxiuchen/gaur/accountmanager"
-	"github.com/qinxiuchen/gaur/consensus/dpos"
 	colorable "github.com/mattn/go-colorable"
 	isatty "github.com/mattn/go-isatty"
+	"github.com/qinxiuchen/gaur/accountmanager"
+	"github.com/qinxiuchen/gaur/consensus/dpos"
 
 	"github.com/qinxiuchen/gaur/common"
 	"github.com/qinxiuchen/gaur/crypto"

@@ -27,6 +27,7 @@ import (
 	"time"
 
 	"github.com/ethereum/go-ethereum/log"
+	lru "github.com/hashicorp/golang-lru"
 	"github.com/qinxiuchen/gaur/common"
 	"github.com/qinxiuchen/gaur/common/prque"
 	"github.com/qinxiuchen/gaur/event"
@@ -39,7 +40,6 @@ import (
 	"github.com/qinxiuchen/gaur/types"
 	"github.com/qinxiuchen/gaur/utils/fdb"
 	"github.com/qinxiuchen/gaur/utils/rlp"
-	lru "github.com/hashicorp/golang-lru"
 )
 
 const (

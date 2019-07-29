@@ -7,8 +7,8 @@ import (
 	"testing"
 	"time"
 
-	"github.com/qinxiuchen/gaur/metrics"
 	client "github.com/influxdata/influxdb1-client"
+	"github.com/qinxiuchen/gaur/metrics"
 )
 
 const (
