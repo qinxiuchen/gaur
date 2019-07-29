@@ -15,7 +15,7 @@ genesis = "./test/genesis.json"
   backtraceat="block.go:271"
 [node]
   datadir="./build/testdatadir"
-  ipcpath="ft.ipc"
+  ipcpath="gaur.ipc"
   httphost="localhost"
   httpport=8545
   httpmodules=["ft"]

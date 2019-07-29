@@ -34,7 +34,7 @@ node:
   # the node datadir
   datadir: "./build/testdatadir"
   # RPC:ipc file name
-  ipcpath: "ft.ipc"
+  ipcpath: "gaur.ipc"
   # RPC:http host address
   httphost: "localhost"
   # RPC:http host port
