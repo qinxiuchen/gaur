@@ -1,5 +1,5 @@
-# Copyright 2018 The Fractal Team Authors
-# This file is part of the fractal project.
+# Copyright 2018 The GAUR Team Authors
+# This file is part of the GAUR project.
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -19,17 +19,17 @@ REPO := $(shell pwd)
 GOFILES_NOVENDOR := $(shell go list -f "{{.Dir}}" ./...)
 PACKAGES_NOVENDOR := $(shell go list ./... | grep -v test)
 WORK_SPACE := ${REPO}/build/_workspace
-FT_DIR :=${WORK_SPACE}/src/github.com/fractalplatform
+FT_DIR :=${WORK_SPACE}/src/github.com/qinxiuchen
 TEMP_GOPATH := $(GOPATH)
 
 export GOPATH := ${WORK_SPACE}
 
 define build
-	@cd ${FT_DIR}/fractal && go build -ldflags " \
-	-X github.com/fractalplatform/fractal/cmd/utils.commit=$(shell cat commit_hash.txt) \
-	-X github.com/fractalplatform/fractal/cmd/utils.date=$(shell date '+%Y-%m-%d') \
-	-X 'github.com/fractalplatform/fractal/cmd/utils.goversion=$(shell go version)'" \
-	-o ${FT_DIR}/fractal/build/bin/$(1) ./cmd/$(1)
+	@cd ${FT_DIR}/gaur && go build -ldflags " \
+	-X github.com/qinxiuchen/gaur/cmd/utils.commit=$(shell cat commit_hash.txt) \
+	-X github.com/qinxiuchen/gaur/cmd/utils.date=$(shell date '+%Y-%m-%d') \
+	-X 'github.com/qinxiuchen/gaur/cmd/utils.goversion=$(shell go version)'" \
+	-o ${FT_DIR}/gaur/build/bin/$(1) ./cmd/$(1)
 endef
 
 
@@ -67,7 +67,7 @@ commit_hash:
 .PHONY: build_workspace
 build_workspace:
 	@[ -d ${FT_DIR} ] || mkdir -p ${FT_DIR}
-	@[ -d ${FT_DIR}/fractal ] || ln -s ${REPO} ${FT_DIR}/fractal
+	@[ -d ${FT_DIR}/gaur ] || ln -s ${REPO} ${FT_DIR}/gaur
 
 # build all targets 
 .PHONY: all
@@ -90,7 +90,7 @@ build_ftfinder: commit_hash check build_workspace
 
 .PHONY: test 
 test: all
-	@cd ${FT_DIR}/fractal  && scripts/test.sh
+	@cd ${FT_DIR}/gaur  && scripts/test.sh
 
 .PHONY: test_win 
 test_win: 
