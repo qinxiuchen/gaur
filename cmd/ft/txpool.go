@@ -17,8 +17,8 @@
 package main
 
 import (
-	"github.com/fractalplatform/fractal/params"
-	"github.com/fractalplatform/fractal/types"
+	"github.com/qinxiuchen/gaur/params"
+	"github.com/qinxiuchen/gaur/types"
 	"github.com/spf13/cobra"
 )
 

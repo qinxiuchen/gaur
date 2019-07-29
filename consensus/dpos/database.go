@@ -23,7 +23,7 @@ import (
 	"math/big"
 	"strings"
 
-	"github.com/fractalplatform/fractal/types"
+	"github.com/qinxiuchen/gaur/types"
 )
 
 // IDB dpos database

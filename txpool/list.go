@@ -21,8 +21,8 @@ import (
 	"math/big"
 
 	"github.com/ethereum/go-ethereum/log"
-	"github.com/fractalplatform/fractal/common"
-	"github.com/fractalplatform/fractal/types"
+	"github.com/qinxiuchen/gaur/common"
+	"github.com/qinxiuchen/gaur/types"
 )
 
 // txList is a "list" of transactions belonging to an account, sorted by account

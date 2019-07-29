@@ -18,7 +18,7 @@ package prque_test
 import (
 	"fmt"
 
-	"github.com/fractalplatform/fractal/common/prque"
+	"github.com/qinxiuchen/gaur/common/prque"
 )
 
 // Insert some data into a priority queue and pop them out in prioritized order.

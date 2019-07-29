@@ -20,7 +20,7 @@ import (
 	"math/big"
 
 	"github.com/ethereum/go-ethereum/common/math"
-	"github.com/fractalplatform/fractal/common"
+	"github.com/qinxiuchen/gaur/common"
 )
 
 // calculates the memory size required for a step

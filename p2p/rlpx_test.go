@@ -29,9 +29,9 @@ import (
 	"testing"
 	"time"
 
-	"github.com/fractalplatform/fractal/crypto"
-	"github.com/fractalplatform/fractal/crypto/ecies"
-	"github.com/fractalplatform/fractal/utils/rlp"
+	"github.com/qinxiuchen/gaur/crypto"
+	"github.com/qinxiuchen/gaur/crypto/ecies"
+	"github.com/qinxiuchen/gaur/utils/rlp"
 	"golang.org/x/crypto/sha3"
 )
 

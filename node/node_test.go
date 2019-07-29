@@ -25,9 +25,9 @@ import (
 	"testing"
 
 	"github.com/ethereum/go-ethereum/log"
-	"github.com/fractalplatform/fractal/crypto"
-	"github.com/fractalplatform/fractal/p2p"
-	"github.com/fractalplatform/fractal/rpc"
+	"github.com/qinxiuchen/gaur/crypto"
+	"github.com/qinxiuchen/gaur/p2p"
+	"github.com/qinxiuchen/gaur/rpc"
 )
 
 var (

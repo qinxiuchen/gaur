@@ -17,8 +17,8 @@
 package txpool
 
 import (
-	"github.com/fractalplatform/fractal/common"
-	"github.com/fractalplatform/fractal/types"
+	"github.com/qinxiuchen/gaur/common"
+	"github.com/qinxiuchen/gaur/types"
 )
 
 // accountSet is simply a set of name to check for existence

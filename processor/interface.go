@@ -17,10 +17,10 @@
 package processor
 
 import (
-	"github.com/fractalplatform/fractal/common"
-	"github.com/fractalplatform/fractal/processor/vm"
-	"github.com/fractalplatform/fractal/state"
-	"github.com/fractalplatform/fractal/types"
+	"github.com/qinxiuchen/gaur/common"
+	"github.com/qinxiuchen/gaur/processor/vm"
+	"github.com/qinxiuchen/gaur/state"
+	"github.com/qinxiuchen/gaur/types"
 )
 
 // Validator is an interface which defines the standard for block validation. It

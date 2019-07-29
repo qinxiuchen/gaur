@@ -20,7 +20,7 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/fractalplatform/fractal/cmd/utils"
+	"github.com/qinxiuchen/gaur/cmd/utils"
 )
 
 func main() {

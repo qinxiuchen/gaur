@@ -16,7 +16,7 @@
 
 package types
 
-import "github.com/fractalplatform/fractal/common"
+import "github.com/qinxiuchen/gaur/common"
 
 type DetailTx struct {
 	TxHash  common.Hash     `json:"txhash"`

@@ -21,7 +21,7 @@ import (
 	"sync/atomic"
 
 	"github.com/ethereum/go-ethereum/common/math"
-	"github.com/fractalplatform/fractal/params"
+	"github.com/qinxiuchen/gaur/params"
 )
 
 // Config are the configuration options for the Interpreter

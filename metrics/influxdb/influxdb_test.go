@@ -7,7 +7,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/fractalplatform/fractal/metrics"
+	"github.com/qinxiuchen/gaur/metrics"
 	client "github.com/influxdata/influxdb1-client"
 )
 

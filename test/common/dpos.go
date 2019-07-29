@@ -20,12 +20,12 @@ import (
 	"crypto/ecdsa"
 	"math/big"
 
-	"github.com/fractalplatform/fractal/common"
-	args "github.com/fractalplatform/fractal/consensus/dpos"
-	"github.com/fractalplatform/fractal/crypto"
-	"github.com/fractalplatform/fractal/params"
-	"github.com/fractalplatform/fractal/types"
-	"github.com/fractalplatform/fractal/utils/rlp"
+	"github.com/qinxiuchen/gaur/common"
+	args "github.com/qinxiuchen/gaur/consensus/dpos"
+	"github.com/qinxiuchen/gaur/crypto"
+	"github.com/qinxiuchen/gaur/params"
+	"github.com/qinxiuchen/gaur/types"
+	"github.com/qinxiuchen/gaur/utils/rlp"
 )
 
 var (

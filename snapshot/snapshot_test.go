@@ -19,11 +19,11 @@ package snapshot
 import (
 	"testing"
 
-	"github.com/fractalplatform/fractal/common"
-	"github.com/fractalplatform/fractal/rawdb"
-	"github.com/fractalplatform/fractal/state"
-	"github.com/fractalplatform/fractal/types"
-	mdb "github.com/fractalplatform/fractal/utils/fdb/memdb"
+	"github.com/qinxiuchen/gaur/common"
+	"github.com/qinxiuchen/gaur/rawdb"
+	"github.com/qinxiuchen/gaur/state"
+	"github.com/qinxiuchen/gaur/types"
+	mdb "github.com/qinxiuchen/gaur/utils/fdb/memdb"
 )
 
 func TestSnapshot(t *testing.T) {

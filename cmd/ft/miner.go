@@ -21,8 +21,8 @@ import (
 	"io"
 	"os"
 
-	"github.com/fractalplatform/fractal/common"
-	"github.com/fractalplatform/fractal/params"
+	"github.com/qinxiuchen/gaur/common"
+	"github.com/qinxiuchen/gaur/params"
 	"github.com/spf13/cobra"
 	jww "github.com/spf13/jwalterweatherman"
 )

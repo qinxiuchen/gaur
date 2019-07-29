@@ -22,8 +22,8 @@ import (
 
 	"github.com/ethereum/go-ethereum/common/hexutil"
 	"github.com/ethereum/go-ethereum/log"
-	"github.com/fractalplatform/fractal/common"
-	"github.com/fractalplatform/fractal/types"
+	"github.com/qinxiuchen/gaur/common"
+	"github.com/qinxiuchen/gaur/types"
 )
 
 // submitTransaction is a helper function that submits tx to txPool and logs a message.

@@ -17,8 +17,8 @@
 package blockchain
 
 import (
-	"github.com/fractalplatform/fractal/common"
-	"github.com/fractalplatform/fractal/types"
+	"github.com/qinxiuchen/gaur/common"
+	"github.com/qinxiuchen/gaur/types"
 )
 
 // PendingLogsEvent is posted pre mining and notifies of pending logs.

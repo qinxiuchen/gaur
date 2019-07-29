@@ -17,8 +17,8 @@
 package types
 
 import (
-	"github.com/fractalplatform/fractal/common"
-	"github.com/fractalplatform/fractal/params"
+	"github.com/qinxiuchen/gaur/common"
+	"github.com/qinxiuchen/gaur/params"
 )
 
 type AccountManagerContext struct {

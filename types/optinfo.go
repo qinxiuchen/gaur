@@ -17,7 +17,7 @@
 package types
 
 import (
-	"github.com/fractalplatform/fractal/common"
+	"github.com/qinxiuchen/gaur/common"
 )
 
 // OptInfo status option info.

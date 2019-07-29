@@ -19,9 +19,9 @@ package state
 import (
 	"sync"
 
-	"github.com/fractalplatform/fractal/common"
-	trie "github.com/fractalplatform/fractal/state/mtp"
-	"github.com/fractalplatform/fractal/utils/fdb"
+	"github.com/qinxiuchen/gaur/common"
+	trie "github.com/qinxiuchen/gaur/state/mtp"
+	"github.com/qinxiuchen/gaur/utils/fdb"
 )
 
 var MaxTrieCacheGen = uint16(120)

@@ -21,7 +21,7 @@ package vm
 // 	"math/big"
 // 	"testing"
 
-// 	"github.com/fractalplatform/fractal/common"
+// 	"github.com/qinxiuchen/gaur/common"
 // )
 
 // // precompiledTest defines the input/output pairs for precompiled contract tests.

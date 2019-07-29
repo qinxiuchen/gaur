@@ -20,7 +20,7 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/fractalplatform/fractal/crypto"
+	"github.com/qinxiuchen/gaur/crypto"
 )
 
 // Method represents a callable given a `Name` and whether the method is a constant.

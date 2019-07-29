@@ -18,8 +18,8 @@ package vm
 
 import (
 	"github.com/ethereum/go-ethereum/common/math"
-	"github.com/fractalplatform/fractal/common"
-	"github.com/fractalplatform/fractal/params"
+	"github.com/qinxiuchen/gaur/common"
+	"github.com/qinxiuchen/gaur/params"
 )
 
 // memoryGasCosts calculates the quadratic gas for memory expansion. It does so

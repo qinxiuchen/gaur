@@ -19,7 +19,7 @@ package vm
 import (
 	"fmt"
 
-	"github.com/fractalplatform/fractal/params"
+	"github.com/qinxiuchen/gaur/params"
 )
 
 func makeStackFunc(pop, push int) stackValidationFunc {

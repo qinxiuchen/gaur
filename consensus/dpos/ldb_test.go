@@ -24,9 +24,9 @@ import (
 	"reflect"
 	"testing"
 
-	"github.com/fractalplatform/fractal/types"
-	"github.com/fractalplatform/fractal/utils/fdb"
-	ldb "github.com/fractalplatform/fractal/utils/fdb/leveldb"
+	"github.com/qinxiuchen/gaur/types"
+	"github.com/qinxiuchen/gaur/utils/fdb"
+	ldb "github.com/qinxiuchen/gaur/utils/fdb/leveldb"
 )
 
 type levelDB struct {

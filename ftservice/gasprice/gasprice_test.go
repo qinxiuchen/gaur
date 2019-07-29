@@ -23,8 +23,8 @@ import (
 	"sort"
 	"testing"
 
-	"github.com/fractalplatform/fractal/rpc"
-	"github.com/fractalplatform/fractal/types"
+	"github.com/qinxiuchen/gaur/rpc"
+	"github.com/qinxiuchen/gaur/types"
 	"github.com/stretchr/testify/assert"
 )
 

@@ -19,7 +19,7 @@ package types
 import (
 	"testing"
 
-	"github.com/fractalplatform/fractal/utils/rlp"
+	"github.com/qinxiuchen/gaur/utils/rlp"
 
 	"github.com/stretchr/testify/assert"
 )

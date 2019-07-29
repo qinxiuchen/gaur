@@ -24,12 +24,12 @@ import (
 	"time"
 
 	"github.com/ethereum/go-ethereum/log"
-	am "github.com/fractalplatform/fractal/accountmanager"
-	"github.com/fractalplatform/fractal/common"
-	"github.com/fractalplatform/fractal/event"
-	"github.com/fractalplatform/fractal/params"
-	"github.com/fractalplatform/fractal/state"
-	"github.com/fractalplatform/fractal/types"
+	am "github.com/qinxiuchen/gaur/accountmanager"
+	"github.com/qinxiuchen/gaur/common"
+	"github.com/qinxiuchen/gaur/event"
+	"github.com/qinxiuchen/gaur/params"
+	"github.com/qinxiuchen/gaur/state"
+	"github.com/qinxiuchen/gaur/types"
 	"gopkg.in/karalabe/cookiejar.v2/collections/prque"
 )
 

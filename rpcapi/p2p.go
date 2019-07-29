@@ -20,8 +20,8 @@ import (
 	"context"
 	"fmt"
 
-	router "github.com/fractalplatform/fractal/event"
-	"github.com/fractalplatform/fractal/rpc"
+	router "github.com/qinxiuchen/gaur/event"
+	"github.com/qinxiuchen/gaur/rpc"
 )
 
 // PrivateP2pAPI offers and API for p2p networking.

@@ -22,12 +22,12 @@ import (
 	"math/big"
 	"testing"
 
-	"github.com/fractalplatform/fractal/consensus/dpos"
-	"github.com/fractalplatform/fractal/params"
+	"github.com/qinxiuchen/gaur/consensus/dpos"
+	"github.com/qinxiuchen/gaur/params"
 
-	"github.com/fractalplatform/fractal/accountmanager"
-	"github.com/fractalplatform/fractal/common"
-	"github.com/fractalplatform/fractal/crypto"
+	"github.com/qinxiuchen/gaur/accountmanager"
+	"github.com/qinxiuchen/gaur/common"
+	"github.com/qinxiuchen/gaur/crypto"
 	. "github.com/smartystreets/goconvey/convey"
 )
 

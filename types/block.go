@@ -25,8 +25,8 @@ import (
 	"sort"
 	"sync/atomic"
 
-	"github.com/fractalplatform/fractal/common"
-	"github.com/fractalplatform/fractal/utils/rlp"
+	"github.com/qinxiuchen/gaur/common"
+	"github.com/qinxiuchen/gaur/utils/rlp"
 )
 
 // ForkID  represents a blockchain fork

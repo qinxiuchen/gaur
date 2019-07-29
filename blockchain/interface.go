@@ -17,7 +17,7 @@
 package blockchain
 
 import (
-	"github.com/fractalplatform/fractal/types"
+	"github.com/qinxiuchen/gaur/types"
 )
 
 // TxSenderCacher ecovers the senders from a batch of blocks and caches them

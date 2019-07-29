@@ -21,8 +21,8 @@ import (
 	"reflect"
 	"testing"
 
-	"github.com/fractalplatform/fractal/common"
-	"github.com/fractalplatform/fractal/crypto"
+	"github.com/qinxiuchen/gaur/common"
+	"github.com/qinxiuchen/gaur/crypto"
 )
 
 func Test_newAssetBalance(t *testing.T) {

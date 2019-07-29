@@ -19,8 +19,8 @@ package blockchain
 import (
 	"time"
 
-	"github.com/fractalplatform/fractal/common"
-	"github.com/fractalplatform/fractal/types"
+	"github.com/qinxiuchen/gaur/common"
+	"github.com/qinxiuchen/gaur/types"
 
 	"github.com/ethereum/go-ethereum/log"
 )

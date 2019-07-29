@@ -21,10 +21,10 @@ import (
 	"math/big"
 	"time"
 
-	"github.com/fractalplatform/fractal/consensus"
-	"github.com/fractalplatform/fractal/params"
-	"github.com/fractalplatform/fractal/state"
-	"github.com/fractalplatform/fractal/types"
+	"github.com/qinxiuchen/gaur/consensus"
+	"github.com/qinxiuchen/gaur/params"
+	"github.com/qinxiuchen/gaur/state"
+	"github.com/qinxiuchen/gaur/types"
 )
 
 var allowedFutureBlockTime = 15 * time.Second

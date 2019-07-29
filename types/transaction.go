@@ -24,9 +24,9 @@ import (
 	"math/big"
 	"sync/atomic"
 
-	"github.com/fractalplatform/fractal/common"
-	"github.com/fractalplatform/fractal/params"
-	"github.com/fractalplatform/fractal/utils/rlp"
+	"github.com/qinxiuchen/gaur/common"
+	"github.com/qinxiuchen/gaur/params"
+	"github.com/qinxiuchen/gaur/utils/rlp"
 )
 
 var (

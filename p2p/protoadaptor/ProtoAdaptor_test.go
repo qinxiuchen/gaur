@@ -22,8 +22,8 @@ import (
 	"testing"
 	"time"
 
-	"github.com/fractalplatform/fractal/crypto"
-	"github.com/fractalplatform/fractal/p2p"
+	"github.com/qinxiuchen/gaur/crypto"
+	"github.com/qinxiuchen/gaur/p2p"
 )
 
 func newkey() *ecdsa.PrivateKey {

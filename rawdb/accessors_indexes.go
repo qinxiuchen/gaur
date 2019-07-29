@@ -18,9 +18,9 @@ package rawdb
 
 import (
 	"github.com/ethereum/go-ethereum/log"
-	"github.com/fractalplatform/fractal/common"
-	"github.com/fractalplatform/fractal/types"
-	"github.com/fractalplatform/fractal/utils/rlp"
+	"github.com/qinxiuchen/gaur/common"
+	"github.com/qinxiuchen/gaur/types"
+	"github.com/qinxiuchen/gaur/utils/rlp"
 )
 
 // ReadTxLookupEntry retrieves the positional metadata associated with a transaction

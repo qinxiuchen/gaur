@@ -19,8 +19,8 @@ package txpool
 import (
 	"sync"
 
-	"github.com/fractalplatform/fractal/common"
-	"github.com/fractalplatform/fractal/types"
+	"github.com/qinxiuchen/gaur/common"
+	"github.com/qinxiuchen/gaur/types"
 )
 
 // txLookup is used internally by TxPool to track transactions while allowing lookup without

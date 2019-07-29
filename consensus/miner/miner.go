@@ -23,9 +23,9 @@ import (
 	"sync/atomic"
 
 	"github.com/ethereum/go-ethereum/log"
-	"github.com/fractalplatform/fractal/consensus"
-	"github.com/fractalplatform/fractal/crypto"
-	"github.com/fractalplatform/fractal/params"
+	"github.com/qinxiuchen/gaur/consensus"
+	"github.com/qinxiuchen/gaur/crypto"
+	"github.com/qinxiuchen/gaur/params"
 )
 
 // Miner creates blocks and searches for proof values.

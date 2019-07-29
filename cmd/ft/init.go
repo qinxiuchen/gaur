@@ -21,8 +21,8 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/fractalplatform/fractal/blockchain"
-	"github.com/fractalplatform/fractal/ftservice"
+	"github.com/qinxiuchen/gaur/blockchain"
+	"github.com/qinxiuchen/gaur/ftservice"
 	"github.com/spf13/cobra"
 )
 

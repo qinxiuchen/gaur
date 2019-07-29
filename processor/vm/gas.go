@@ -19,7 +19,7 @@ package vm
 import (
 	"math/big"
 
-	"github.com/fractalplatform/fractal/params"
+	"github.com/qinxiuchen/gaur/params"
 )
 
 const (

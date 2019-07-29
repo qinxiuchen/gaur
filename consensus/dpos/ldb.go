@@ -23,8 +23,8 @@ import (
 	"math/big"
 	"strings"
 
-	"github.com/fractalplatform/fractal/types"
-	"github.com/fractalplatform/fractal/utils/rlp"
+	"github.com/qinxiuchen/gaur/types"
+	"github.com/qinxiuchen/gaur/utils/rlp"
 )
 
 // IDatabase level db

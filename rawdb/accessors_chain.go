@@ -23,9 +23,9 @@ import (
 	"math/big"
 
 	"github.com/ethereum/go-ethereum/log"
-	"github.com/fractalplatform/fractal/common"
-	"github.com/fractalplatform/fractal/types"
-	"github.com/fractalplatform/fractal/utils/rlp"
+	"github.com/qinxiuchen/gaur/common"
+	"github.com/qinxiuchen/gaur/types"
+	"github.com/qinxiuchen/gaur/utils/rlp"
 )
 
 // ReadCanonicalHash retrieves the hash assigned to a canonical block number.

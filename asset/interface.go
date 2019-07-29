@@ -19,7 +19,7 @@ package asset
 import (
 	"math/big"
 
-	"github.com/fractalplatform/fractal/common"
+	"github.com/qinxiuchen/gaur/common"
 )
 
 //export

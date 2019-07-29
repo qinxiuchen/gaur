@@ -20,8 +20,8 @@ import (
 	"math/big"
 	"testing"
 
-	"github.com/fractalplatform/fractal/common"
-	"github.com/fractalplatform/fractal/crypto"
+	"github.com/qinxiuchen/gaur/common"
+	"github.com/qinxiuchen/gaur/crypto"
 )
 
 func TestSigningMultiKey(t *testing.T) {

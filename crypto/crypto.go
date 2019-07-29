@@ -29,8 +29,8 @@ import (
 	"os"
 
 	"github.com/ethereum/go-ethereum/common/math"
-	"github.com/fractalplatform/fractal/common"
-	"github.com/fractalplatform/fractal/utils/rlp"
+	"github.com/qinxiuchen/gaur/common"
+	"github.com/qinxiuchen/gaur/utils/rlp"
 )
 
 var (

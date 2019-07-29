@@ -20,7 +20,7 @@ import (
 	"errors"
 	"math/big"
 
-	"github.com/fractalplatform/fractal/params"
+	"github.com/qinxiuchen/gaur/params"
 )
 
 type (

@@ -16,7 +16,7 @@
 
 package txpool
 
-import "github.com/fractalplatform/fractal/types"
+import "github.com/qinxiuchen/gaur/types"
 
 // TransactionWithPath is the network packet for the transactions.
 type TransactionWithPath struct {

@@ -17,8 +17,8 @@
 package miner
 
 import (
-	"github.com/fractalplatform/fractal/consensus"
-	"github.com/fractalplatform/fractal/rpc"
+	"github.com/qinxiuchen/gaur/consensus"
+	"github.com/qinxiuchen/gaur/rpc"
 )
 
 // API exposes dpos related methods for the RPC interface.

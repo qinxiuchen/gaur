@@ -23,10 +23,10 @@ import (
 	"syscall"
 
 	"github.com/ethereum/go-ethereum/log"
-	"github.com/fractalplatform/fractal/cmd/utils"
-	"github.com/fractalplatform/fractal/common"
-	"github.com/fractalplatform/fractal/node"
-	"github.com/fractalplatform/fractal/p2p"
+	"github.com/qinxiuchen/gaur/cmd/utils"
+	"github.com/qinxiuchen/gaur/common"
+	"github.com/qinxiuchen/gaur/node"
+	"github.com/qinxiuchen/gaur/p2p"
 	"github.com/spf13/cobra"
 )
 

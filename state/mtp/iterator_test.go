@@ -22,8 +22,8 @@ import (
 	"math/rand"
 	"testing"
 
-	"github.com/fractalplatform/fractal/common"
-	mdb "github.com/fractalplatform/fractal/utils/fdb/memdb"
+	"github.com/qinxiuchen/gaur/common"
+	mdb "github.com/qinxiuchen/gaur/utils/fdb/memdb"
 )
 
 func TestIterator(t *testing.T) {

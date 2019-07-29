@@ -16,7 +16,7 @@
 
 package types
 
-import "github.com/fractalplatform/fractal/common"
+import "github.com/qinxiuchen/gaur/common"
 
 type SnapshotBlock struct {
 	Number    uint64

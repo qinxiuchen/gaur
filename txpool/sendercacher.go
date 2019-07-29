@@ -19,7 +19,7 @@ package txpool
 import (
 	"runtime"
 
-	"github.com/fractalplatform/fractal/types"
+	"github.com/qinxiuchen/gaur/types"
 )
 
 // SenderCacher is a concurrent tranaction sender recoverer anc cacher.

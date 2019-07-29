@@ -11,14 +11,14 @@ import (
 	"sync"
 	"time"
 
-	"github.com/fractalplatform/fractal/common"
-	"github.com/fractalplatform/fractal/crypto"
+	"github.com/qinxiuchen/gaur/common"
+	"github.com/qinxiuchen/gaur/crypto"
 
-	"github.com/fractalplatform/fractal/accountmanager"
+	"github.com/qinxiuchen/gaur/accountmanager"
 
-	"github.com/fractalplatform/fractal/consensus/dpos"
+	"github.com/qinxiuchen/gaur/consensus/dpos"
 
-	"github.com/fractalplatform/fractal/sdk"
+	"github.com/qinxiuchen/gaur/sdk"
 )
 
 func main() {

@@ -22,10 +22,10 @@ import (
 	"io"
 
 	"github.com/ethereum/go-ethereum/common/math"
-	"github.com/fractalplatform/fractal/common"
-	"github.com/fractalplatform/fractal/crypto"
-	"github.com/fractalplatform/fractal/p2p/enr"
-	"github.com/fractalplatform/fractal/utils/rlp"
+	"github.com/qinxiuchen/gaur/common"
+	"github.com/qinxiuchen/gaur/crypto"
+	"github.com/qinxiuchen/gaur/p2p/enr"
+	"github.com/qinxiuchen/gaur/utils/rlp"
 )
 
 // List of known secure identity schemes.

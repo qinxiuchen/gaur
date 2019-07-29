@@ -17,7 +17,7 @@
 package state
 
 import (
-	"github.com/fractalplatform/fractal/common"
+	"github.com/qinxiuchen/gaur/common"
 )
 
 type journalEntry interface {

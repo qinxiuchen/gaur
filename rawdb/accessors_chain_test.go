@@ -21,10 +21,10 @@ import (
 	"math/big"
 	"testing"
 
-	"github.com/fractalplatform/fractal/common"
-	"github.com/fractalplatform/fractal/types"
-	mdb "github.com/fractalplatform/fractal/utils/fdb/memdb"
-	"github.com/fractalplatform/fractal/utils/rlp"
+	"github.com/qinxiuchen/gaur/common"
+	"github.com/qinxiuchen/gaur/types"
+	mdb "github.com/qinxiuchen/gaur/utils/fdb/memdb"
+	"github.com/qinxiuchen/gaur/utils/rlp"
 	"golang.org/x/crypto/sha3"
 )
 

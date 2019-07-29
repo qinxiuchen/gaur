@@ -19,9 +19,9 @@ package accountmanager
 import (
 	"math/big"
 
-	"github.com/fractalplatform/fractal/asset"
-	"github.com/fractalplatform/fractal/common"
-	"github.com/fractalplatform/fractal/types"
+	"github.com/qinxiuchen/gaur/asset"
+	"github.com/qinxiuchen/gaur/common"
+	"github.com/qinxiuchen/gaur/types"
 )
 
 //export account interface

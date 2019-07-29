@@ -26,7 +26,7 @@ import (
 	"net"
 	"strings"
 
-	"github.com/fractalplatform/fractal/p2p/enr"
+	"github.com/qinxiuchen/gaur/p2p/enr"
 )
 
 // Node represents a host on the network.

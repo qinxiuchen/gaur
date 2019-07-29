@@ -16,7 +16,7 @@
 
 package sdk
 
-import "github.com/fractalplatform/fractal/feemanager"
+import "github.com/qinxiuchen/gaur/feemanager"
 
 // FeeInfo get object fee by name
 func (api *API) FeeInfo(name string, objectType uint64) (map[string]interface{}, error) {

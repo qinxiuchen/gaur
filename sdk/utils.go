@@ -21,7 +21,7 @@ import (
 	"math/rand"
 	"time"
 
-	"github.com/fractalplatform/fractal/crypto"
+	"github.com/qinxiuchen/gaur/crypto"
 )
 
 var (

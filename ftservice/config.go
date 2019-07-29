@@ -17,10 +17,10 @@
 package ftservice
 
 import (
-	"github.com/fractalplatform/fractal/blockchain"
-	"github.com/fractalplatform/fractal/ftservice/gasprice"
-	"github.com/fractalplatform/fractal/metrics"
-	"github.com/fractalplatform/fractal/txpool"
+	"github.com/qinxiuchen/gaur/blockchain"
+	"github.com/qinxiuchen/gaur/ftservice/gasprice"
+	"github.com/qinxiuchen/gaur/metrics"
+	"github.com/qinxiuchen/gaur/txpool"
 )
 
 // Config ftservice config

@@ -21,7 +21,7 @@ import (
 	"runtime"
 	"runtime/debug"
 
-	"github.com/fractalplatform/fractal/params"
+	"github.com/qinxiuchen/gaur/params"
 	"github.com/spf13/cobra"
 )
 

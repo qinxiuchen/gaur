@@ -25,9 +25,9 @@ import (
 	"sync/atomic"
 	"time"
 
-	"github.com/fractalplatform/fractal/event"
-	"github.com/fractalplatform/fractal/p2p/enode"
-	"github.com/fractalplatform/fractal/utils/rlp"
+	"github.com/qinxiuchen/gaur/event"
+	"github.com/qinxiuchen/gaur/p2p/enode"
+	"github.com/qinxiuchen/gaur/utils/rlp"
 )
 
 // Msg defines the structure of a p2p message.

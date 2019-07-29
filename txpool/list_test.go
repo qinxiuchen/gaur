@@ -20,8 +20,8 @@ import (
 	"math/rand"
 	"testing"
 
-	"github.com/fractalplatform/fractal/crypto"
-	"github.com/fractalplatform/fractal/types"
+	"github.com/qinxiuchen/gaur/crypto"
+	"github.com/qinxiuchen/gaur/types"
 	"github.com/stretchr/testify/assert"
 )
 

@@ -19,7 +19,7 @@ package sdk
 import (
 	"fmt"
 
-	"github.com/fractalplatform/fractal/rpc"
+	"github.com/qinxiuchen/gaur/rpc"
 )
 
 // API rpc api

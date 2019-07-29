@@ -21,8 +21,8 @@ import (
 	"math/big"
 	"testing"
 
-	"github.com/fractalplatform/fractal/common"
-	"github.com/fractalplatform/fractal/types"
+	"github.com/qinxiuchen/gaur/common"
+	"github.com/qinxiuchen/gaur/types"
 	"github.com/stretchr/testify/assert"
 )
 

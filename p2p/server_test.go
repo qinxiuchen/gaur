@@ -26,9 +26,9 @@ import (
 	"time"
 
 	"github.com/ethereum/go-ethereum/log"
-	"github.com/fractalplatform/fractal/crypto"
-	"github.com/fractalplatform/fractal/p2p/enode"
-	"github.com/fractalplatform/fractal/p2p/enr"
+	"github.com/qinxiuchen/gaur/crypto"
+	"github.com/qinxiuchen/gaur/p2p/enode"
+	"github.com/qinxiuchen/gaur/p2p/enr"
 	"golang.org/x/crypto/sha3"
 )
 

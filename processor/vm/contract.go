@@ -19,7 +19,7 @@ package vm
 import (
 	"math/big"
 
-	"github.com/fractalplatform/fractal/common"
+	"github.com/qinxiuchen/gaur/common"
 )
 
 // ContractRef is a reference to the contract's backing object

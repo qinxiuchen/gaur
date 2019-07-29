@@ -20,8 +20,8 @@ import (
 	"encoding/json"
 
 	"github.com/ethereum/go-ethereum/log"
-	"github.com/fractalplatform/fractal/common"
-	"github.com/fractalplatform/fractal/params"
+	"github.com/qinxiuchen/gaur/common"
+	"github.com/qinxiuchen/gaur/params"
 )
 
 // ReadChainConfig retrieves the consensus settings based on the given genesis hash.

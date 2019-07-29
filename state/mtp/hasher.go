@@ -20,8 +20,8 @@ import (
 	"hash"
 	"sync"
 
-	"github.com/fractalplatform/fractal/common"
-	"github.com/fractalplatform/fractal/utils/rlp"
+	"github.com/qinxiuchen/gaur/common"
+	"github.com/qinxiuchen/gaur/utils/rlp"
 	"golang.org/x/crypto/sha3"
 )
 

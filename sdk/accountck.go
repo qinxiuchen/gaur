@@ -20,8 +20,8 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/fractalplatform/fractal/common"
-	"github.com/fractalplatform/fractal/types"
+	"github.com/qinxiuchen/gaur/common"
+	"github.com/qinxiuchen/gaur/types"
 )
 
 func (acc *Account) utilReceipt(hash common.Hash, timeout int64) error {

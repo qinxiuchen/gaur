@@ -16,7 +16,7 @@
 
 package txpool
 
-import "github.com/fractalplatform/fractal/types"
+import "github.com/qinxiuchen/gaur/types"
 
 // priceHeap is a heap.Interface implementation over transactions for retrieving
 // price-sorted transactions to discard when the pool fills up.

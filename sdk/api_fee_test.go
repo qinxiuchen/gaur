@@ -19,7 +19,7 @@ package sdk
 import (
 	"testing"
 
-	"github.com/fractalplatform/fractal/params"
+	"github.com/qinxiuchen/gaur/params"
 	. "github.com/smartystreets/goconvey/convey"
 )
 

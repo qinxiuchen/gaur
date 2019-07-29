@@ -23,9 +23,9 @@ import (
 	"time"
 
 	"github.com/ethereum/go-ethereum/log"
-	"github.com/fractalplatform/fractal/common"
-	"github.com/fractalplatform/fractal/consensus"
-	"github.com/fractalplatform/fractal/rpc"
+	"github.com/qinxiuchen/gaur/common"
+	"github.com/qinxiuchen/gaur/consensus"
+	"github.com/qinxiuchen/gaur/rpc"
 )
 
 // API exposes dpos related methods for the RPC interface.

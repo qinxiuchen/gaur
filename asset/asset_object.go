@@ -18,7 +18,7 @@ package asset
 import (
 	"math/big"
 
-	"github.com/fractalplatform/fractal/common"
+	"github.com/qinxiuchen/gaur/common"
 )
 
 type AssetObject struct {

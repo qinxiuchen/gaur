@@ -23,10 +23,10 @@ import (
 	"testing"
 	"time"
 
-	"github.com/fractalplatform/fractal/common"
-	"github.com/fractalplatform/fractal/rawdb"
-	"github.com/fractalplatform/fractal/types"
-	mdb "github.com/fractalplatform/fractal/utils/fdb/memdb"
+	"github.com/qinxiuchen/gaur/common"
+	"github.com/qinxiuchen/gaur/rawdb"
+	"github.com/qinxiuchen/gaur/types"
+	mdb "github.com/qinxiuchen/gaur/utils/fdb/memdb"
 )
 
 func TestNew(t *testing.T) {

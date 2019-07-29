@@ -22,9 +22,9 @@ import (
 	"sync"
 	"testing"
 
-	"github.com/fractalplatform/fractal/common"
-	"github.com/fractalplatform/fractal/crypto"
-	mdb "github.com/fractalplatform/fractal/utils/fdb/memdb"
+	"github.com/qinxiuchen/gaur/common"
+	"github.com/qinxiuchen/gaur/crypto"
+	mdb "github.com/qinxiuchen/gaur/utils/fdb/memdb"
 )
 
 func newEmptySecure() *SecureTrie {

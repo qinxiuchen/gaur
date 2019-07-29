@@ -27,8 +27,8 @@ import (
 	"strconv"
 
 	"github.com/ethereum/go-ethereum/common/math"
-	"github.com/fractalplatform/fractal/crypto"
-	"github.com/fractalplatform/fractal/p2p/enr"
+	"github.com/qinxiuchen/gaur/crypto"
+	"github.com/qinxiuchen/gaur/p2p/enr"
 )
 
 var incompleteNodeURL = regexp.MustCompile("(?i)^(?:fnode://)?([0-9a-f]+)$")

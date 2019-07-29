@@ -19,7 +19,7 @@ package protoadaptor
 import (
 	"sync"
 
-	router "github.com/fractalplatform/fractal/event"
+	router "github.com/qinxiuchen/gaur/event"
 )
 
 type peerMangaer struct {

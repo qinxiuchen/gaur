@@ -19,8 +19,8 @@ package sdk
 import (
 	"math/big"
 
-	"github.com/fractalplatform/fractal/accountmanager"
-	"github.com/fractalplatform/fractal/asset"
+	"github.com/qinxiuchen/gaur/accountmanager"
+	"github.com/qinxiuchen/gaur/asset"
 )
 
 // AccountIsExist account exist

@@ -21,7 +21,7 @@ import (
 	"reflect"
 	"testing"
 
-	"github.com/fractalplatform/fractal/common"
+	"github.com/qinxiuchen/gaur/common"
 )
 
 func Test_newAssetObject(t *testing.T) {

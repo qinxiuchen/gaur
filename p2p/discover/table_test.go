@@ -26,9 +26,9 @@ import (
 	"testing/quick"
 	"time"
 
-	"github.com/fractalplatform/fractal/crypto"
-	"github.com/fractalplatform/fractal/p2p/enode"
-	"github.com/fractalplatform/fractal/p2p/enr"
+	"github.com/qinxiuchen/gaur/crypto"
+	"github.com/qinxiuchen/gaur/p2p/enode"
+	"github.com/qinxiuchen/gaur/p2p/enr"
 )
 
 func TestTable_pingReplace(t *testing.T) {

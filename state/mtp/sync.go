@@ -20,8 +20,8 @@ import (
 	"errors"
 	"fmt"
 
-	"github.com/fractalplatform/fractal/common"
-	"github.com/fractalplatform/fractal/utils/fdb"
+	"github.com/qinxiuchen/gaur/common"
+	"github.com/qinxiuchen/gaur/utils/fdb"
 	"gopkg.in/karalabe/cookiejar.v2/collections/prque"
 )
 

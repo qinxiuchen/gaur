@@ -20,8 +20,8 @@ import (
 	"bytes"
 	"testing"
 
-	"github.com/fractalplatform/fractal/common"
-	mdb "github.com/fractalplatform/fractal/utils/fdb/memdb"
+	"github.com/qinxiuchen/gaur/common"
+	mdb "github.com/qinxiuchen/gaur/utils/fdb/memdb"
 )
 
 // makeTestTrie create a sample test trie to test node-wise reconstruction.
