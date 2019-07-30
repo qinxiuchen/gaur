@@ -23,5 +23,5 @@ const (
 
 const (
 	//ClientIdentifier Client identifier to advertise over the network
-	ClientIdentifier = "ft"
+	ClientIdentifier = "gaur"
 )
