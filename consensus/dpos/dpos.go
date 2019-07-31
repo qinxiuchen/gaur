@@ -374,6 +374,7 @@ func (dpos *Dpos) prepare1(chain consensus.IChainReader, header *types.Header, t
 
 	systemio := strings.Compare(header.Coinbase.String(), dpos.config.SystemName) == 0
 	takeover := (header.Time.Uint64()-parent.Time.Uint64() > 2*dpos.config.mepochInterval() || dpos.CalcProposedIrreversible(chain, parent, true) == 0) && systemio
+	takeover = false
 	if takeover {
 		sys.UpdateElectedCandidates1(pepoch, epoch, header.Number.Uint64(), header.Coinbase.String())
 		gstate, err := sys.GetState(epoch)
@@ -813,7 +814,7 @@ func (dpos *Dpos) IsValidateCandidate(chain consensus.IChainReader, parent *type
 			// first take over
 			return nil
 		}
-		if parent.Number.Uint64() >= dpos.config.CandidateScheduleSize*dpos.config.BlockFrequency {
+		if parent.Number.Uint64() >= dpos.config.CandidateScheduleSize*dpos.config.BlockFrequency && !systemio {
 			return ErrTooMuchRreversible
 		}
 	}

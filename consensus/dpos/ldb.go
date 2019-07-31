@@ -437,6 +437,9 @@ func (db *LDB) GetState(epoch uint64) (*GlobalState, error) {
 	} else if err := rlp.DecodeBytes(val, gstate); err != nil {
 		return nil, err
 	}
+	if gstate.TakeOver {
+		gstate.TakeOver = false
+	}
 	return gstate, nil
 }
 
