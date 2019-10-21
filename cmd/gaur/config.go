@@ -73,7 +73,7 @@ func defaultNodeConfig() *node.Config {
 func defaultP2pConfig() *p2p.Config {
 	cfg := &p2p.Config{
 		MaxPeers:   10,
-		Name:       "Fractal-P2P",
+		Name:       "Gaur-P2P",
 		ListenAddr: ":2018",
 	}
 	return cfg

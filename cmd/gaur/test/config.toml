@@ -31,7 +31,7 @@ genesis = "./test/genesis.json"
   trustnodes="./build/trustnodes.txt"
   [node.p2p]
     networkid=1
-    name="Fractal-P2P"
+    name="Gaur-P2P"
     maxpeers=10
     maxpendpeers=10
     dialratio=10
